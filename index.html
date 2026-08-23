@@ -43,7 +43,6 @@
 
   .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
 
-  /* NAV */
   nav{
     display:flex;justify-content:space-between;align-items:center;
     padding:28px 0;
@@ -58,7 +57,6 @@
     padding:10px 20px;border-radius:100px;font-size:14px;font-weight:600;
   }
 
-  /* HERO */
   .hero{padding:80px 0 60px;}
   .eyebrow{
     font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
@@ -95,7 +93,6 @@
   }
   .btn-primary:hover{transform:translateY(-2px);}
 
-  /* SERVICES */
   .section{padding:70px 0;}
   .section-head{max-width:600px;margin-bottom:48px;}
   .section-label{
@@ -122,7 +119,6 @@
   .service-card h3{font-size:20px;font-weight:600;margin-bottom:12px;letter-spacing:-0.01em;}
   .service-card p{font-size:15px;line-height:1.55;opacity:0.75;font-family:'Source Serif 4',serif;}
 
-  /* PROCESS */
   .process{background:var(--panel);color:var(--charcoal);}
   .process .section-label{color:#8FB39C;}
   .process-steps{display:flex;flex-direction:column;}
@@ -135,7 +131,6 @@
   .step h4{font-size:19px;font-weight:600;margin-bottom:6px;}
   .step p{font-size:15px;opacity:0.7;font-family:'Source Serif 4',serif;line-height:1.5;max-width:520px;}
 
-  /* FOUNDING */
   .founding{
     background:var(--cobalt);color:var(--charcoal);
     border-radius:24px;padding:56px 48px;margin:70px 0;
@@ -149,7 +144,6 @@
   .founding-box ul{margin-top:20px;list-style:none;font-size:14px;}
   .founding-box li{padding:6px 0;border-top:1px solid rgba(255,255,255,0.15);opacity:0.9;}
 
-  /* CONTACT */
   .contact{text-align:center;padding:90px 0 100px;}
   .contact h2{font-size:clamp(32px,5vw,52px);font-weight:700;letter-spacing:-0.03em;max-width:600px;margin:0 auto 20px;}
   .contact p{font-family:'Source Serif 4',serif;font-size:17px;opacity:0.75;max-width:420px;margin:0 auto 32px;}
@@ -226,9 +220,6 @@
     .nav-cta{padding:7px 10px;font-size:11px;}
   }
 
-  /* ===== ANIMATION SYSTEM ===== */
-
-  /* ambient background glow */
   .ambient-glow{
     position:fixed;top:-20%;left:50%;width:900px;height:900px;
     transform:translateX(-50%);
@@ -242,7 +233,6 @@
   }
   .wrap, nav, footer{position:relative;z-index:1;}
 
-  /* hero entrance */
   .eyebrow, h1, .hero-tagline, .hero-sub, .hero-cta{
     opacity:0;transform:translateY(18px);
     animation:heroIn .7s cubic-bezier(.16,.84,.44,1) forwards;
@@ -260,8 +250,6 @@
     50%{box-shadow:0 0 0 6px rgba(91,124,255,0);}
   }
 
-  /* growth line draw-on */
-  /* signal network */
   .signal-network{
     width:100%;height:96px;display:block;margin:24px 0;
   }
@@ -269,11 +257,9 @@
     .signal-network{height:72px;}
   }
 
-  /* scroll reveal */
   .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,.84,.44,1), transform .7s cubic-bezier(.16,.84,.44,1);}
   .reveal.in-view{opacity:1;transform:translateY(0);}
 
-  /* card hover lift */
   .service-card{transition:transform .3s ease, background .3s ease;}
   .service-card:hover{transform:translateY(-6px);background:#1B2621;}
   .step{transition:padding-left .3s ease;}
@@ -580,7 +566,6 @@
 </div>
 
 <script>
-  // Always open the page from the top, even if the URL has a #section attached
   if (window.location.hash) {
     window.history.replaceState(null, '', window.location.pathname + window.location.search);
   }
@@ -666,7 +651,6 @@
 </script>
 
 <script>
-  // Scroll-reveal: tag target elements, stagger children, observe, and animate in
   (function(){
     var groups = document.querySelectorAll('.section-head, .founding, #about p');
     groups.forEach(function(el){ el.classList.add('reveal'); });
@@ -714,7 +698,6 @@
 </script>
 
 <script>
-  // Animated particle network — drifting nodes connected by proximity
   (function(){
     var canvas = document.getElementById('signalNetwork');
     if (!canvas) return;
@@ -727,12 +710,10 @@
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var w, h;
 
-    // pointer interaction
     var pointer = { x: null, y: null, active: false };
-    var pointerRadius = 130;   // how far the pointer reaches
-    var repelStrength = 0.6;   // how hard nodes push away
+    var pointerRadius = 130;
+    var repelStrength = 0.6;
 
-    // "signal pulse" — a ripple of light that fires from the last touch point on release
     var pulse = { x: 0, y: 0, r: 0, active: false, maxR: 220, speed: 5.5 };
 
     function releasePointer(){
@@ -786,9 +767,7 @@
     function step(){
       ctx.clearRect(0, 0, w, h);
 
-      // move
       particles.forEach(function(p){
-        // gentle push away from pointer when nearby
         if (pointer.active){
           var dx = p.x - pointer.x, dy = p.y - pointer.y;
           var dist = Math.sqrt(dx*dx + dy*dy);
@@ -802,7 +781,6 @@
         p.x += p.vx;
         p.y += p.vy;
 
-        // gentle drag so nodes settle back to drifting speed after being pushed
         p.vx *= 0.98;
         p.vy *= 0.98;
 
@@ -811,7 +789,6 @@
         p.x = Math.max(0, Math.min(w, p.x));
         p.y = Math.max(0, Math.min(h, p.y));
 
-        // signal pulse — nodes catch a brief brightness boost as the ring passes through them
         p.pulseGlow = 0;
         if (pulse.active){
           var pdx = p.x - pulse.x, pdy = p.y - pulse.y;
@@ -822,13 +799,11 @@
         }
       });
 
-      // advance the signal pulse ring
       if (pulse.active){
         pulse.r += pulse.speed;
         if (pulse.r > pulse.maxR) pulse.active = false;
       }
 
-      // links — soft glow + depth-based color/width for a richer look
       for (var i = 0; i < particles.length; i++){
         for (var j = i + 1; j < particles.length; j++){
           var a = particles[i], b = particles[j];
@@ -837,7 +812,6 @@
           if (dist < linkDist){
             var closeness = 1 - dist / linkDist;
             var alpha = closeness * 0.55;
-            // closer links lean brighter/cyan, farther links lean deeper blue
             var r = Math.round(110 + closeness * 60);
             var g = Math.round(140 + closeness * 60);
             var bch = 255;
@@ -854,7 +828,6 @@
       }
       ctx.shadowBlur = 0;
 
-      // pointer links — connect cursor/touch to nearby nodes
       if (pointer.active){
         particles.forEach(function(p){
           var dx = p.x - pointer.x, dy = p.y - pointer.y;
@@ -871,7 +844,6 @@
         });
       }
 
-      // signal pulse ring — fades out as it expands
       if (pulse.active){
         var pulseAlpha = (1 - pulse.r / pulse.maxR) * 0.55;
         ctx.strokeStyle = 'rgba(150,175,255,' + pulseAlpha.toFixed(3) + ')';
@@ -881,11 +853,10 @@
         ctx.stroke();
       }
 
-      // nodes — gentle ambient twinkle plus soft glow, brighter when pulse passes through
       particles.forEach(function(p){
         var glow = p.pulseGlow || 0;
         p.twinklePhase += p.twinkleSpeed;
-        var twinkle = 0.75 + Math.sin(p.twinklePhase) * 0.25; // oscillates ~0.5–1.0
+        var twinkle = 0.75 + Math.sin(p.twinklePhase) * 0.25;
 
         var baseAlpha = 0.9 * twinkle;
         ctx.beginPath();
