@@ -732,9 +732,9 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
     canvas.addEventListener('touchend', releasePointer);
     canvas.addEventListener('touchcancel', releasePointer);
 
-    function resize(){
-      w = canvas.clientWidth;
-      h = canvas.clientHeight;
+    function resize(size){
+      w = size.width;
+      h = size.height;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -867,17 +867,22 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
       if (!reduceMotion) requestAnimationFrame(step);
     }
 
-    requestAnimationFrame(function(){
-      resize();
+    var started = false;
+    function onSize(size){
+      if (!size.width) return;
+      resize(size);
       init();
-      step();
-    });
-
-    window.addEventListener('resize', function(){
-      resize();
-      init();
-      if (reduceMotion) step();
-    });
+      if (!started){ started = true; step(); }
+      else if (reduceMotion){ step(); }
+    }
+    if ('ResizeObserver' in window){
+      new ResizeObserver(function(entries){ onSize(entries[0].contentRect); }).observe(canvas);
+    } else {
+      requestAnimationFrame(function(){
+        var r = canvas.getBoundingClientRect();
+        onSize({ width: r.width, height: r.height });
+      });
+    }
   })();
 </script>
 
