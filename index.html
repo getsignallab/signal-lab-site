@@ -23,7 +23,8 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&family=Caveat:wght@600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&family=Caveat:wght@600;700&display=swap"></noscript>
 <style>
     :root{
     --ink:#0E1512;
@@ -132,7 +133,7 @@
   }
   .step:last-child{border-bottom:1px solid rgba(237,231,217,0.1);}
   .step-num{font-family:'Source Serif 4',serif;font-style:italic;font-size:22px;color:var(--cobalt);}
-  .step h4{font-size:19px;font-weight:600;margin-bottom:6px;}
+  .step h3{font-size:19px;font-weight:600;margin-bottom:6px;}
   .step p{font-size:15px;opacity:0.7;font-family:'Source Serif 4',serif;line-height:1.5;max-width:520px;}
 
   .founding{
@@ -310,7 +311,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
 
 <div class="wrap">
   <nav>
-    <div class="logo" style="display:flex;align-items:center;gap:10px;"><img src="/logo.png" alt="Signal Lab" style="height:32px;width:auto;">Signal<span>Lab</span></div>
+    <div class="logo" style="display:flex;align-items:center;gap:10px;"><img src="/logo-sm.webp" alt="Signal Lab" width="37" height="32" style="height:32px;width:auto;">Signal<span>Lab</span></div>
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#process">Process</a>
@@ -319,6 +320,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
     <a href="#contact" class="nav-cta">Apply Now</a>
   </nav>
 
+  <main>
   <section class="hero">
     <div class="eyebrow">Now taking on founding clients</div>
     <h1>Turn Local Attention Into<br><em>Booked Customers.</em></h1>
@@ -335,7 +337,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
     <div class="section-head">
       <div class="section-label">What I do</div>
       <div class="section-title-wrap">
-        <div class="section-title">More Booked Customers</div>
+        <h2 class="section-title">More Booked Customers</h2>
         <span class="script-accent">everything works toward it</span>
       </div>
     </div>
@@ -366,26 +368,26 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
   <section class="section process" id="process" style="margin:0 -32px;padding:70px 32px;border-radius:24px;">
     <div class="section-head">
       <div class="section-title-wrap">
-        <div class="section-title">How It Starts</div>
+        <h2 class="section-title">How It Starts</h2>
         <span class="script-accent">four steps, zero fluff</span>
       </div>
     </div>
     <div class="process-steps">
       <div class="step">
         <div class="step-num">01</div>
-        <div><h4>Growth Strategy Call</h4><p>A free 30-minute call to understand your business, your customers, and where new jobs come from today — so we both know if this is a fit.</p></div>
+        <div><h3>Growth Strategy Call</h3><p>A free 30-minute call to understand your business, your customers, and where new jobs come from today — so we both know if this is a fit.</p></div>
       </div>
       <div class="step">
         <div class="step-num">02</div>
-        <div><h4>Strategy</h4><p>A simple plan built around your business—not a generic template. I pick the highest-impact moves first and lay out exactly what happens next.</p></div>
+        <div><h3>Strategy</h3><p>A simple plan built around your business—not a generic template. I pick the highest-impact moves first and lay out exactly what happens next.</p></div>
       </div>
       <div class="step">
         <div class="step-num">03</div>
-        <div><h4>Launch</h4><p>Once you approve it, I launch your ads and content and keep you updated every step of the way.</p></div>
+        <div><h3>Launch</h3><p>Once you approve it, I launch your ads and content and keep you updated every step of the way.</p></div>
       </div>
       <div class="step">
         <div class="step-num">04</div>
-        <div><h4>Scale</h4><p>I track every lead, cut what doesn't work, and push what does so you get more booked customers month after month.</p></div>
+        <div><h3>Scale</h3><p>I track every lead, cut what doesn't work, and push what does so you get more booked customers month after month.</p></div>
       </div>
     </div>
   </section>
@@ -409,7 +411,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
   <section class="section" id="why">
     <div class="section-head">
       <div class="section-title-wrap">
-        <div class="section-title">Why Signal Lab</div>
+        <h2 class="section-title">Why Signal Lab</h2>
         <span class="script-accent">what makes this different</span>
       </div>
     </div>
@@ -435,7 +437,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
   <section class="section" id="about">
     <div class="section-head">
       <div class="section-title-wrap">
-        <div class="section-title">Meet Tony</div>
+        <h2 class="section-title">Meet Tony</h2>
         <span class="script-accent">founder of signal lab</span>
       </div>
     </div>
@@ -546,6 +548,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
       </div>
     </div>
   </section>
+  </main>
 
   <footer style="justify-content:center;">
     <div>© 2026 Signal Lab. All rights reserved.</div>
@@ -864,9 +867,11 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
       if (!reduceMotion) requestAnimationFrame(step);
     }
 
-    resize();
-    init();
-    step();
+    requestAnimationFrame(function(){
+      resize();
+      init();
+      step();
+    });
 
     window.addEventListener('resize', function(){
       resize();
@@ -877,6 +882,11 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
 </script>
 
 <script type="text/javascript">
+  (function(){
+    var calLoaded = false;
+    function loadCal(){
+      if (calLoaded) return; calLoaded = true;
+
   (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
   Cal("init", "discovery-call", {origin:"https://cal.com"});
   Cal.ns["discovery-call"]("ui", {
@@ -889,6 +899,17 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
     action: "bookingSuccessful",
     callback: function(){ if (window.fbq) fbq('track', 'Schedule'); }
   });
+    }
+    var target = document.getElementById('contact');
+    if ('IntersectionObserver' in window && target){
+      var io = new IntersectionObserver(function(entries){
+        if (entries[0].isIntersecting){ loadCal(); io.disconnect(); }
+      }, { rootMargin: '600px' });
+      io.observe(target);
+    } else {
+      window.addEventListener('load', loadCal);
+    }
+  })();
 </script>
 
 </body>
