@@ -125,6 +125,19 @@
   .services-grid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);}
   .grid-4{grid-template-columns:repeat(4,1fr);}
   .grid-3{grid-template-columns:repeat(3,1fr);}
+  .grid-2{grid-template-columns:repeat(2,1fr);}
+  .service-card.wide{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr;gap:6px 28px;align-items:start;}
+  .service-card.wide .bracket-tag{grid-row:span 2;margin-top:4px;}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:56px;}
+  .fact{background:var(--panel);padding:22px 24px;}
+  .fact strong{display:block;font-size:20px;font-weight:700;letter-spacing:-0.01em;color:var(--charcoal);}
+  .fact span{display:block;margin-top:6px;font-family:'Source Serif 4',serif;font-size:15px;opacity:.72;}
+  .fit-list{list-style:none;margin-top:6px;display:grid;gap:12px;}
+  .fit-list li{font-family:'Source Serif 4',serif;font-size:16px;line-height:1.5;opacity:.85;padding-left:28px;position:relative;}
+  .fit-list li::before{position:absolute;left:0;top:0;font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .fit-yes li::before{content:'✓';color:var(--moss);}
+  .fit-no li::before{content:'✕';color:#E07A6B;}
+  @media (max-width:760px){.facts{grid-template-columns:1fr;margin-top:40px;}.fact{padding:14px 20px;}.fact strong{font-size:17px;}.service-card.wide{grid-template-columns:1fr;}.service-card.wide .bracket-tag{grid-row:auto;}}
   .service-card{background:var(--panel);padding:36px 28px;}
   .service-pct{font-family:'Source Serif 4',serif;font-style:italic;font-size:15px;color:var(--cobalt);margin-bottom:16px;}
   .service-card h3{font-size:20px;font-weight:600;margin-bottom:12px;letter-spacing:-0.01em;}
@@ -331,9 +344,14 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
     <div class="eyebrow">Now taking on founding clients</div>
     <h1>Turn Local Attention Into<br><em>Booked Customers.</em></h1>
     <p class="hero-tagline">For local service businesses across Florida.</p>
-    <p class="hero-sub">I help Florida service businesses — contractors, home services, salons, spas and more — turn Meta ads and content into more calls, bookings, and booked jobs.</p>
+    <p class="hero-sub">I run Facebook and Instagram ads that bring you more calls, bookings, and booked jobs.</p>
     <div class="hero-cta">
       <a href="#services" class="btn-primary">See How I Help</a>
+    </div>
+    <div class="facts" aria-label="Signal Lab at a glance">
+      <div class="fact"><strong>Florida</strong><span>Local service businesses only</span></div>
+      <div class="fact"><strong>Facebook + Instagram</strong><span>Meta ads specialist</span></div>
+      <div class="fact"><strong>Direct</strong><span>You work with me, no account managers</span></div>
     </div>
   </section>
 
@@ -367,6 +385,11 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
         <span class="bracket-tag">[004]</span>
         <h3>Reporting</h3>
         <p>A plain-language monthly report: how many leads came in, what they cost, and what I'm changing next.</p>
+      </div>
+      <div class="service-card wide">
+        <span class="bracket-tag">[005]</span>
+        <h3>Lead Follow-Up</h3>
+        <p>A lead is only worth something if it turns into a booked job. You get a simple call and text script (English and Spanish) so every new lead hears from you fast, from click to booked job.</p>
       </div>
     </div>
   </section>
@@ -436,6 +459,38 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
         <span class="bracket-tag">[03]</span>
         <h3>AI-Powered Execution</h3>
         <p>I use modern AI tools and automation to move faster and respond quicker, without sacrificing quality.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="fit">
+    <div class="section-head">
+      <div class="section-label">Who it's for</div>
+      <div class="section-title-wrap">
+        <h2 class="section-title">Is This a Fit?</h2>
+        <span class="script-accent">honest from day one</span>
+      </div>
+    </div>
+    <div class="services-grid grid-2">
+      <div class="service-card">
+        <span class="bracket-tag">[GOOD FIT]</span>
+        <h3>You're a good fit if</h3>
+        <ul class="fit-list fit-yes">
+          <li>You run a local service business in Florida (home services, beauty, wellness and more)</li>
+          <li>You can take on more jobs or appointments right now</li>
+          <li>You (or your team) answer new leads fast</li>
+          <li>You can invest at least $20/day in ads</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="bracket-tag">[NOT A FIT]</span>
+        <h3>Probably not a fit if</h3>
+        <ul class="fit-list fit-no">
+          <li>You're fully booked with no room for new customers</li>
+          <li>Nobody can call new leads back within an hour</li>
+          <li>You expect results overnight</li>
+          <li>You just want likes and followers, not booked jobs</li>
+        </ul>
       </div>
     </div>
   </section>
