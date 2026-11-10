@@ -111,6 +111,72 @@
   }
   .btn-primary:hover{transform:translateY(-2px);}
 
+  .btn-solid{background:var(--charcoal);color:var(--ink);border-color:var(--charcoal);}
+  .hero-cta{align-items:center;}
+  .hero-link{font-size:15px;font-weight:500;opacity:.75;border-bottom:1px solid var(--line);padding-bottom:2px;}
+  .hero-link:hover{opacity:1;}
+  .hero-trust{
+    margin-top:18px;font-family:'Source Serif 4',serif;font-size:15px;color:rgba(237,231,217,.65);
+    opacity:0;transform:translateY(18px);
+    animation:heroIn .7s cubic-bezier(.16,.84,.44,1) .66s forwards;
+  }
+
+  .proof-intro{margin-top:22px;font-family:'Source Serif 4',serif;font-size:17px;line-height:1.55;opacity:.8;}
+  .proof-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);}
+  .proof-card{background:var(--panel);padding:36px 28px;min-width:0;}
+  .proof-wide{grid-column:1/-1;}
+  .proof-card h3{font-size:20px;font-weight:600;margin-bottom:10px;letter-spacing:-0.01em;}
+  .proof-card > p{font-size:15px;line-height:1.55;opacity:.75;font-family:'Source Serif 4',serif;margin-bottom:24px;}
+  .sample-tag{font-family:monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--moss);}
+
+  .report{background:var(--ink);border:1px solid var(--line);border-radius:14px;padding:20px;}
+  .report-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:14px;font-weight:600;margin-bottom:18px;}
+  .report-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:6px;}
+  .report-stats strong{display:block;font-size:26px;font-weight:700;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;}
+  .report-stats span{display:block;font-size:12px;opacity:.65;margin-top:2px;}
+  .report-row{border-top:1px solid var(--line);padding-top:12px;margin-top:12px;}
+  .report-row span{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--moss);margin-bottom:4px;}
+  .report-row p{font-family:'Source Serif 4',serif;font-size:14px;line-height:1.5;opacity:.85;}
+
+  .script-box{background:var(--ink);border:1px solid var(--line);border-radius:14px;padding:0 20px;margin-bottom:12px;}
+  .script-box summary{cursor:pointer;padding:16px 0;font-size:14px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .script-box summary::-webkit-details-marker{display:none;}
+  .script-box summary::after{content:'+';font-size:18px;color:var(--moss);}
+  .script-box[open] summary::after{content:'\2212';}
+  .script-line{border-top:1px solid var(--line);padding:14px 0;}
+  .script-line span{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--moss);margin-bottom:6px;}
+  .script-line p{font-family:'Source Serif 4',serif;font-size:14px;line-height:1.55;opacity:.85;}
+
+  .ads-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+  .ad{
+    background:radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--ad) 28%, transparent) 0%, transparent 55%), #0F1722;
+    border:1px solid var(--line);border-radius:14px;padding:22px 20px;
+    display:flex;flex-direction:column;align-items:flex-start;gap:14px;
+  }
+  .ad-pill{background:var(--ad);color:#10161D;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:100px;}
+  .ad-head{font-size:26px;font-weight:700;line-height:1.05;letter-spacing:-0.02em;color:#F4EFE6;}
+  .ad-head em{display:block;font-family:'Source Serif 4',serif;font-style:italic;font-weight:400;color:var(--ad);}
+  .ad ul{list-style:none;display:grid;gap:8px;font-size:14px;color:#F4EFE6;}
+  .ad li{padding-left:22px;position:relative;line-height:1.35;}
+  .ad li::before{content:'\2713';position:absolute;left:0;color:var(--ad);font-weight:700;}
+  .ad-btn{margin-top:auto;background:var(--ad);color:#10161D;font-size:13px;font-weight:700;padding:10px 16px;border-radius:100px;}
+
+  .promise{
+    margin-top:32px;border:1.5px solid var(--cobalt);border-radius:20px;padding:32px;
+    display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;
+    background:rgba(91,124,255,.08);
+  }
+  .promise h3{font-size:24px;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;}
+  .promise p{font-family:'Source Serif 4',serif;font-size:16px;line-height:1.55;opacity:.85;max-width:560px;}
+
+  @media (max-width:760px){
+    .proof-grid,.ads-row,.promise{grid-template-columns:1fr;}
+    .proof-card{padding:28px 20px;}
+    .report-stats{grid-template-columns:repeat(2,1fr);gap:14px 10px;}
+    .promise{padding:24px 20px;}
+    .promise .btn-primary{justify-content:center;}
+  }
+
   .section{padding:70px 0;}
   .section-head{max-width:600px;margin-bottom:48px;}
   .section-label{
@@ -348,21 +414,106 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
 
   <main>
   <section class="hero">
-    <div class="eyebrow">Now taking on founding clients</div>
+    <div class="eyebrow">Now taking 5 founding clients in Florida</div>
     <h1>Turn Local Attention Into<br><em>Booked Customers.</em></h1>
     <p class="hero-tagline">For local service businesses across Florida.</p>
-    <p class="hero-sub">I run Facebook and Instagram ads that bring you more calls, bookings, and booked jobs.</p>
+    <p class="hero-sub">Facebook and Instagram ads that bring you more calls, estimate requests, and booked jobs, with a weekly report that shows exactly what each lead cost.</p>
     <div class="hero-cta">
-      <a href="#services" class="btn-primary">See How I Help</a>
+      <a href="#contact" class="btn-primary btn-solid">Apply for a Free Strategy Call</a>
+      <a href="#proof" class="hero-link">or see how it works &darr;</a>
     </div>
+    <p class="hero-trust">Month-to-month. No contract. You work directly with me.</p>
     <div class="facts" aria-label="Signal Lab at a glance">
       <div class="fact"><strong>Florida</strong><span>Local service businesses only</span></div>
-      <div class="fact"><strong>Facebook + Instagram</strong><span>Meta ads specialist</span></div>
+      <div class="fact"><strong>Facebook + Instagram</strong><span>Ads built to get calls and bookings</span></div>
       <div class="fact"><strong>Direct</strong><span>You work with me, no account managers</span></div>
     </div>
   </section>
 
   <canvas class="signal-network" id="signalNetwork" aria-hidden="true"></canvas>
+
+  <section class="section" id="proof">
+    <div class="section-head">
+      <div class="section-label">What you'll actually get</div>
+      <div class="section-title-wrap">
+        <h2 class="section-title">See It Before You Sign Up</h2>
+        <span class="script-accent">the work itself, not a promise</span>
+      </div>
+      <p class="proof-intro">I'm new enough that I don't have a wall of client logos, and I won't pretend otherwise. So instead of asking you to take my word for it, here is exactly what working with me looks like.</p>
+    </div>
+
+    <div class="proof-grid">
+      <div class="proof-card">
+        <span class="bracket-tag">[01]</span>
+        <h3>A weekly report you can read in a minute</h3>
+        <p>How many leads came in, what each one cost, which ad brought them, and what I'm changing next week.</p>
+        <div class="report" role="img" aria-label="Sample weekly report with example numbers: 14 leads, 21 dollars per lead, 5 booked jobs, 300 dollars ad spend">
+          <div class="report-top"><span>Weekly report</span><span class="sample-tag">Sample &middot; example numbers</span></div>
+          <div class="report-stats">
+            <div><strong>14</strong><span>new leads</span></div>
+            <div><strong>$21</strong><span>cost per lead</span></div>
+            <div><strong>5</strong><span>booked jobs</span></div>
+            <div><strong>$300</strong><span>ad spend</span></div>
+          </div>
+          <div class="report-row"><span>Best ad</span><p>"Free roof inspection" brought 9 of the 14 leads.</p></div>
+          <div class="report-row"><span>Changing next week</span><p>Pausing the video ad ($38 per lead) and moving its budget to the inspection ad.</p></div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <span class="bracket-tag">[02]</span>
+        <h3>The follow-up script your leads will hear</h3>
+        <p>A call and a text, in English and Spanish, so every new lead hears from you within minutes.</p>
+        <details class="script-box" open>
+          <summary>English</summary>
+          <div class="script-line"><span>Call, within 5 minutes</span><p>"Hi [Name], this is [You] from [Business]. You just asked about [service] on Facebook. Do you have two minutes so I can get you on the schedule?"</p></div>
+          <div class="script-line"><span>Text, if no answer</span><p>"Hi [Name], it's [You] from [Business]. I just tried calling about your [service] request. What's a good time to talk today? You can also reply here."</p></div>
+        </details>
+        <details class="script-box">
+          <summary>Espa&ntilde;ol</summary>
+          <div class="script-line"><span>Llamada, en menos de 5 minutos</span><p>"Hola [Nombre], le habla [Usted] de [Negocio]. Acaba de pedir informaci&oacute;n sobre [servicio] en Facebook. &iquest;Tiene dos minutos para agendar su cita?"</p></div>
+          <div class="script-line"><span>Mensaje, si no contesta</span><p>"Hola [Nombre], soy [Usted] de [Negocio]. Le acabo de llamar por su solicitud de [servicio]. &iquest;A qu&eacute; hora le puedo llamar hoy? Tambi&eacute;n puede responder por aqu&iacute;."</p></div>
+        </details>
+      </div>
+
+      <div class="proof-card proof-wide">
+        <span class="bracket-tag">[03]</span>
+        <h3>Ads built for a business like yours</h3>
+        <p>Three example ads, so you can see the style before we talk.</p>
+        <div class="ads-row">
+          <div class="ad" style="--ad:#FFA047;">
+            <span class="sample-tag">Example ad</span>
+            <span class="ad-pill">Miami homeowners</span>
+            <div class="ad-head">Get your free <em>roof inspection</em></div>
+            <ul><li>100% free, no obligation</li><li>We call you within 24 hours</li><li>Serving Miami + 15 miles</li></ul>
+            <span class="ad-btn">Get my free inspection &rarr;</span>
+          </div>
+          <div class="ad" style="--ad:#5CC8F0;">
+            <span class="sample-tag">Example ad</span>
+            <span class="ad-pill">Tampa homeowners</span>
+            <div class="ad-head">AC out? <em>Same-day repair</em></div>
+            <ul><li>Upfront price before any work</li><li>Licensed, insured technicians</li><li>Open evenings and weekends</li></ul>
+            <span class="ad-btn">Book my repair &rarr;</span>
+          </div>
+          <div class="ad" style="--ad:#8FD694;">
+            <span class="sample-tag">Example ad</span>
+            <span class="ad-pill">Orlando homeowners</span>
+            <div class="ad-head">Driveway looking tired? <em>Free quote</em></div>
+            <ul><li>Driveways, patios, pool decks</li><li>Quote by text in one hour</li><li>Most jobs done in a day</li></ul>
+            <span class="ad-btn">Get my free quote &rarr;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="promise">
+      <div>
+        <h3>If it isn't working, you don't stay stuck.</h3>
+        <p>Founding clients are month-to-month with no contract. If your ads don't bring in a single lead in the first 30 days, you don't pay my fee for that month. You only cover your own ad spend.</p>
+      </div>
+      <a href="#contact" class="btn-primary btn-solid">Apply for a Free Strategy Call</a>
+    </div>
+  </section>
 
   <section class="section" id="services">
     <div class="section-head">
