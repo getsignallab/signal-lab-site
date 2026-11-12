@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (Google Analytics) -->
-<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-K8LWNW3B"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K8LWNW3B');</script>
+<!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Signal Lab — More Booked Customers for Florida Local Businesses</title>
@@ -174,7 +174,7 @@
     .proof-card{padding:28px 20px;}
     .report-stats{grid-template-columns:repeat(2,1fr);gap:14px 10px;}
     .promise{padding:24px 20px;}
-    .promise .btn-primary{justify-content:center;}
+    .promise .btn-primary{justify-content:center;text-align:center;}
   }
 
   .section{padding:70px 0;}
@@ -374,6 +374,24 @@
   }
   .nav-links a:hover::after{width:100%;}
 
+  .cta-row{margin-top:40px;display:flex;align-items:center;gap:14px 20px;flex-wrap:wrap;}
+  .cta-row span{font-family:'Source Serif 4',serif;font-size:15px;color:rgba(237,231,217,.65);}
+
+  .sticky-cta{display:none;}
+  @media (max-width:760px){
+    .hero{padding:36px 0 44px;}
+    .cta-row .btn-primary{width:100%;justify-content:center;}
+    .cta-row span{width:100%;text-align:center;}
+    .sticky-cta{
+      display:block;position:fixed;left:16px;right:16px;bottom:14px;z-index:50;
+      background:var(--charcoal);color:var(--ink);text-align:center;
+      padding:15px 20px;border-radius:100px;font-weight:600;font-size:15px;
+      box-shadow:0 10px 30px rgba(0,0,0,.55);
+      transform:translateY(160%);transition:transform .3s ease;
+    }
+    .sticky-cta.show{transform:translateY(0);}
+  }
+
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
     .ambient-glow{display:none;}
@@ -403,8 +421,9 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
 
 <div class="wrap">
   <nav>
-    <div class="logo" style="display:flex;align-items:center;gap:10px;"><img src="/logo-sm.webp" alt="Signal Lab" width="37" height="32" style="height:32px;width:auto;">Signal<span>Lab</span></div>
+    <a href="/" class="logo" aria-label="Signal Lab home" style="display:flex;align-items:center;gap:10px;"><img src="/logo-sm.webp" alt="" width="37" height="32" style="height:32px;width:auto;">Signal<span>Lab</span></a>
     <div class="nav-links">
+      <a href="#proof">What You Get</a>
       <a href="#services">Services</a>
       <a href="#process">Process</a>
       <a href="#why">Why Signal Lab</a>
@@ -422,7 +441,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
       <a href="#contact" class="btn-primary btn-solid">Apply for a Free Strategy Call</a>
       <a href="#proof" class="hero-link">or see how it works &darr;</a>
     </div>
-    <p class="hero-trust">Month-to-month. No contract. You work directly with me.</p>
+    <p class="hero-trust">Month-to-month. No contract. No leads in your first 30 days? You don't pay my fee.</p>
     <div class="facts" aria-label="Signal Lab at a glance">
       <div class="fact"><strong>Florida</strong><span>Local service businesses only</span></div>
       <div class="fact"><strong>Facebook + Instagram</strong><span>Ads built to get calls and bookings</span></div>
@@ -508,7 +527,8 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
 
     <div class="promise">
       <div>
-        <h3>If it isn't working, you don't stay stuck.</h3>
+        <span class="bracket-tag">[THE GUARANTEE]</span>
+        <h3>No leads in 30 days? You don't pay my fee.</h3>
         <p>Founding clients are month-to-month with no contract. If your ads don't bring in a single lead in the first 30 days, you don't pay my fee for that month. You only cover your own ad spend.</p>
       </div>
       <a href="#contact" class="btn-primary btn-solid">Apply for a Free Strategy Call</a>
@@ -577,6 +597,10 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
         <div><h3>Scale</h3><p>I track every lead, cut what doesn't work, and push what does so you get more booked customers month after month.</p></div>
       </div>
     </div>
+    <div class="cta-row">
+      <a href="#contact" class="btn-primary btn-solid">Apply for a Free Strategy Call</a>
+      <span>Step one is free and takes 30 minutes.</span>
+    </div>
   </section>
 
   <div class="founding">
@@ -615,8 +639,8 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
       </div>
       <div class="service-card">
         <span class="bracket-tag">[03]</span>
-        <h3>AI-Powered Execution</h3>
-        <p>I use modern AI tools and automation to move faster and respond quicker, without sacrificing quality.</p>
+        <h3>Fast Changes, Not Slow Tickets</h3>
+        <p>I use modern AI tools and automation, so new ads, fixes, and answers to your questions come quickly, without sacrificing quality.</p>
       </div>
     </div>
   </section>
@@ -651,6 +675,10 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
         </ul>
       </div>
     </div>
+    <div class="cta-row">
+      <a href="#contact" class="btn-primary btn-solid">Sounds Like Me. Apply Now</a>
+      <span>Month-to-month. No contract.</span>
+    </div>
   </section>
 
   <section class="section" id="about">
@@ -678,7 +706,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
           <span class="step-tag">[01]</span>
           <h3>Full Name*</h3>
           <div class="form-row">
-            <input type="text" id="f-name" name="name" placeholder="Type your answer here…" required>
+            <input type="text" id="f-name" name="name" autocomplete="name" placeholder="Type your answer here…" required>
           </div>
           <div class="wizard-nav"><button type="button" class="form-submit wizard-next" data-next>Continue</button></div>
         </div>
@@ -744,9 +772,9 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
           <h3>Fill out your contact information.*</h3>
           <div class="form-row">
             <label style="display:block;font-size:13px;font-weight:600;color:var(--moss);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Phone number*</label>
-            <input type="text" id="f-phone" name="phone" placeholder="(201) 555-0123" required style="margin-bottom:20px;">
+            <input type="tel" id="f-phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(407) 555-0123" required style="margin-bottom:20px;">
             <label style="display:block;font-size:13px;font-weight:600;color:var(--moss);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Email*</label>
-            <input type="email" id="f-email" name="email" placeholder="name@example.com" required>
+            <input type="email" id="f-email" name="email" autocomplete="email" placeholder="name@example.com" required>
           </div>
           <p class="form-note">I'll follow up within 24 hours — or book a time now on the next screen.</p>
           <div class="wizard-nav">
@@ -769,11 +797,33 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
   </section>
   </main>
 
-  <footer style="justify-content:center;gap:16px;flex-wrap:wrap;">
-    <div>© 2026 Signal Lab. All rights reserved.</div>
+  <footer style="justify-content:center;gap:10px 20px;flex-wrap:wrap;text-align:center;">
+    <div>© 2026 Signal Lab. Serving local businesses across Florida.</div>
+    <a href="mailto:getsignallab@gmail.com">getsignallab@gmail.com</a>
     <a href="/privacy">Privacy Policy</a>
   </footer>
 </div>
+
+<a href="#contact" class="sticky-cta" id="stickyCta">Apply for a Free Strategy Call</a>
+
+<script>
+  (function(){
+    var bar = document.getElementById('stickyCta');
+    var contact = document.getElementById('contact');
+    if (!bar || !contact) return;
+    var ticking = false;
+    function update(){
+      ticking = false;
+      var pastHero = window.scrollY > 520;
+      var reachedForm = contact.getBoundingClientRect().top < window.innerHeight - 80;
+      bar.classList.toggle('show', pastHero && !reachedForm);
+    }
+    window.addEventListener('scroll', function(){
+      if (!ticking){ ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  })();
+</script>
 
 <script>
   if (window.location.hash) {
