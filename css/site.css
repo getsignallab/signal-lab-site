@@ -120,20 +120,20 @@ em{font-style:italic;}
 .site-header{padding-block:22px;}
 .site-header--over{position:absolute;inset:0 0 auto;z-index:5;}
 .site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;}
-.wordmark{font-family:var(--display);font-weight:800;font-size:1.25rem;line-height:1;letter-spacing:-.04em;text-decoration:none;white-space:nowrap;}
+.wordmark{font-family:var(--display);font-weight:800;font-size:1.0625rem;line-height:1;letter-spacing:-.04em;text-decoration:none;white-space:nowrap;}
 .wordmark em{font-style:normal;color:var(--lime);}
 .nav{display:flex;align-items:center;gap:clamp(18px,2.4vw,36px);font-size:.875rem;color:var(--chrome);}
 .nav a{text-decoration:none;transition:color .2s ease;}
 .nav a:hover{color:var(--ink);}
-.nav a.nav-cta{color:var(--abyss);background:var(--ink);padding:10px 16px;font-weight:600;}
-.nav a.nav-cta:hover{background:var(--lime);}
+.nav a.nav-cta{color:var(--ink);border:1px solid rgba(244,241,234,.4);padding:9px 15px;font-weight:500;transition:background-color .2s ease,color .2s ease,border-color .2s ease;}
+.nav a.nav-cta:hover{background:var(--lime);border-color:var(--lime);color:#0A0D05;}
 .nav-toggle{display:none;background:none;border:0;font-size:.875rem;cursor:pointer;padding:6px 0;}
 
 /* ---------- Hero ----------
    The 3D scene (js/scene.js) draws into the canvas. Until it is running, and on
    devices that never run it, the backdrop gradient or the still image stands in.
    The headline, positioning and call to action are plain HTML and never wait for it. */
-.hero{position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;
+.hero{position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;
   min-height:clamp(680px,58vw,860px);padding-top:120px;padding-bottom:clamp(24px,3vw,40px);
   background:radial-gradient(60% 70% at 73% 46%,#1B1570 0%,#0C0F3C 40%,var(--abyss) 74%);}
 .hero-canvas,.hero-still{position:absolute;inset:0;width:100%;height:100%;z-index:-2;}
@@ -144,18 +144,21 @@ em{font-style:italic;}
 .scene-still .hero-canvas{display:none;}
 .hero::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:linear-gradient(90deg,rgba(5,6,26,.86) 0%,rgba(5,6,26,.4) 40%,rgba(5,6,26,0) 60%);}
-.hero > .wrap{width:100%;}
-.hero-copy{max-width:42rem;}
-.hero-kicker{font-size:.9375rem;color:var(--chrome);}
-.hero .display{margin-block:18px 24px;margin-left:-.04em;}
+/* The copy sits in the vertical centre of the space left of the ribbon; the facts are
+   pinned to the foot. Type is deliberately modest so the ribbon carries the scale. */
+.hero > .wrap{width:100%;flex:1;display:flex;flex-direction:column;}
+.hero-copy{max-width:34rem;margin-block:auto;padding-block:clamp(24px,4vw,56px);}
+.hero-kicker{font-size:.8125rem;line-height:1.5;color:var(--dim);}
+.hero .display{font-weight:600;font-size:clamp(2.2rem,4.4vw,4.1rem);line-height:1;letter-spacing:-.035em;margin-block:clamp(22px,2.4vw,32px) clamp(26px,2.8vw,38px);margin-left:-.03em;}
 .signal-word{color:var(--lime);}
-.hero .lede{color:var(--chrome);}
-.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;margin-top:30px;}
-.hero-actions .fine{max-width:25em;}
-.hero-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gap);margin-top:clamp(40px,5vw,72px);border-top:1px solid var(--line);}
-.hero-facts div{padding-top:14px;font-size:.875rem;}
-.hero-facts dt{color:var(--dim);}
-.hero-facts dd{color:var(--ink);margin-top:2px;}
+.hero .lede{font-size:1rem;line-height:1.65;color:#B4B9D0;max-width:27em;}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;margin-top:clamp(36px,3.6vw,52px);}
+.hero-actions .btn{padding:13px 20px;font-size:.875rem;}
+.hero-actions .fine{font-size:.8125rem;max-width:21em;}
+.hero-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gap);border-top:1px solid rgba(212,217,230,.1);}
+.hero-facts div{padding-top:14px;font-size:.8125rem;line-height:1.5;}
+.hero-facts dt{font-size:.75rem;color:var(--dim);}
+.hero-facts dd{color:var(--chrome);}
 
 /* ---------- 01 Services ---------- */
 .services-intro{grid-column:3 / span 8;margin-bottom:clamp(40px,6vw,88px);}
@@ -391,11 +394,12 @@ em{font-style:italic;}
   .nav-toggle,.wordmark{position:relative;z-index:61;}
   body.nav-open{overflow:hidden;}
 
-  .hero{min-height:0;padding-top:330px;background:radial-gradient(120% 34% at 50% 20%,#1B1570 0%,#0C0F3C 46%,var(--abyss) 82%);}
+  .hero{min-height:0;padding-top:320px;background:radial-gradient(120% 34% at 50% 20%,#1B1570 0%,#0C0F3C 46%,var(--abyss) 82%);}
   .hero::after{background:linear-gradient(0deg,rgba(5,6,26,.94) 0%,rgba(5,6,26,.72) 52%,rgba(5,6,26,0) 72%);}
   .hero-still{object-position:50% 0;}
-  .hero-actions .btn{width:100%;}
-  .hero-facts{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:6px;}
+  .hero-copy{padding-block:8px 44px;}
+  .hero-actions .btn{width:100%;justify-content:center;}
+  .hero-facts{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:4px;}
 
   .services-intro{grid-column:1 / -1;}
   .service{row-gap:10px;}

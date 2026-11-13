@@ -240,8 +240,8 @@
     function resize() {
       var w = hero.clientWidth, h = hero.clientHeight, aspect = w / h, narrow = w < 760;
       renderer.setSize(w, h, false); camera.aspect = aspect;
-      var z = Math.max(13.5, (narrow ? 3.4 : 7.2) / (HALF_FOV_TAN * aspect));
-      var halfH = HALF_FOV_TAN * z, cxp = narrow ? 0.5 : 0.73, cyp = narrow ? Math.min(190 / h, 0.3) : 0.46;
+      var z = Math.max(narrow ? 13.5 : 12.6, (narrow ? 3.4 : 6.7) / (HALF_FOV_TAN * aspect));
+      var halfH = HALF_FOV_TAN * z, cxp = narrow ? 0.5 : 0.71, cyp = narrow ? Math.min(185 / h, 0.3) : 0.47;
       camera.position.set(0, 0, z);
       holder.position.set((cxp - 0.5) * 2 * halfH * aspect, (0.5 - cyp) * 2 * halfH, 0);
       backdrop.uA.value = aspect; backdrop.uC.value.set(cxp, 1 - cyp);
