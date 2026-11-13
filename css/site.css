@@ -132,32 +132,35 @@ em{font-style:italic;}
 .site-header:not(.site-header--over) .wrap{display:flex;justify-content:space-between;}
 
 /* ---------- Hero ----------
-   Centred composition: label, headline, one sentence, one button, then the ribbon as
-   the main visual beneath, with the four facts along the foot.
-   The 3D scene (js/scene.js) draws into the canvas and centres the ribbon on .hero-stage.
-   Until it runs, and on devices that never run it, the gradient or the still image
-   stands in. The copy is plain HTML and never waits for it. */
-.hero{position:relative;overflow:hidden;isolation:isolate;text-align:center;
-  padding-top:clamp(120px,10.5vw,156px);padding-bottom:clamp(24px,3vw,36px);
-  background:radial-gradient(52% 46% at 50% 66%,#1B1570 0%,#0C0F3C 44%,var(--abyss) 78%);}
-.hero-canvas,.hero-still{position:absolute;inset:0;width:100%;height:100%;z-index:-2;}
+   Two separate layers, so the scene can never sit behind the words:
+     .hero-copy   label, headline, one sentence, one button, guarantee: plain HTML on the flat ground
+     .hero-stage  the 3D scene (js/scene.js), confined to its own box below the copy and
+                  faded out at its edges with a mask so nothing drifts into the text
+   Until the scene runs, and on devices that never run it, the stage shows its gradient
+   or the still image. */
+.hero{position:relative;text-align:center;background:var(--abyss);
+  padding-top:clamp(124px,11vw,164px);padding-bottom:clamp(24px,3vw,36px);}
+.hero-copy{position:relative;z-index:1;max-width:50rem;margin-inline:auto;}
+.hero-kicker{display:inline-block;border:1px solid rgba(212,217,230,.22);border-radius:999px;padding:6px 14px;font-size:.75rem;line-height:1.4;color:var(--dim);}
+.hero .display{font-weight:600;font-size:clamp(1.8rem,3.5vw,3.25rem);line-height:1.1;letter-spacing:-.03em;margin-block:clamp(22px,2vw,30px) clamp(16px,1.5vw,22px);}
+.signal-word{color:var(--lime);}
+.hero .lede{font-size:clamp(.9375rem,1.1vw,1rem);line-height:1.65;color:#AEB3CB;max-width:33em;margin-inline:auto;text-wrap:balance;}
+.hero-actions{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:clamp(28px,2.6vw,36px);}
+.hero-actions .btn{padding:12px 22px;font-size:.875rem;}
+.hero-actions .fine{font-size:.75rem;max-width:none;color:var(--dim);text-wrap:balance;}
+
+.hero-stage{position:relative;height:clamp(300px,min(40vw,54svh),560px);margin-top:clamp(4px,1vw,16px);
+  background:radial-gradient(38% 58% at 50% 52%,#1B1570 0%,#0C0F3C 46%,var(--abyss) 82%);
+  -webkit-mask-image:radial-gradient(ellipse 58% 62% at 50% 52%,#000 52%,transparent 100%);
+          mask-image:radial-gradient(ellipse 58% 62% at 50% 52%,#000 52%,transparent 100%);}
+.hero-canvas,.hero-still{position:absolute;inset:0;width:100%;height:100%;}
 .hero-canvas{opacity:0;transition:opacity 1s ease;}
 .scene-live .hero-canvas{opacity:1;}
-.hero-still{display:none;object-fit:cover;object-position:50% 100%;}
+.hero-still{display:none;object-fit:cover;}
 .scene-still .hero-still,html:not(.js) .hero-still{display:block;}
 .scene-still .hero-canvas{display:none;}
-.hero::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(5,6,26,.7) 0%,rgba(5,6,26,.25) 34%,rgba(5,6,26,0) 52%);}
-.hero-copy{max-width:44rem;margin-inline:auto;}
-.hero-kicker{display:inline-block;border:1px solid rgba(212,217,230,.28);border-radius:999px;padding:7px 16px;font-size:.8125rem;line-height:1.4;color:var(--chrome);}
-.hero .display{font-weight:700;font-size:clamp(2.25rem,4.9vw,4.5rem);line-height:1.02;letter-spacing:-.04em;margin-block:clamp(22px,2.2vw,30px) clamp(20px,2vw,26px);}
-.signal-word{color:var(--lime);}
-.hero .lede{font-size:clamp(1rem,1.2vw,1.125rem);line-height:1.6;color:#B4B9D0;max-width:30em;margin-inline:auto;}
-.hero-actions{display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:clamp(28px,2.8vw,38px);}
-.hero-actions .btn{padding:14px 26px;font-size:.9375rem;}
-.hero-actions .fine{font-size:.8125rem;max-width:none;}
-.hero-stage{height:clamp(250px,27vw,390px);margin-top:clamp(12px,1.6vw,24px);}
-.hero-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gap);border-top:1px solid rgba(212,217,230,.1);}
+
+.hero-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gap);border-top:1px solid rgba(212,217,230,.1);margin-top:clamp(8px,1.4vw,20px);}
 .hero-facts div{padding-top:16px;font-size:.8125rem;line-height:1.5;}
 .hero-facts dt{font-size:.75rem;color:var(--dim);}
 .hero-facts dd{color:var(--chrome);}
@@ -397,11 +400,11 @@ em{font-style:italic;}
   .nav a:last-child{border-bottom:1px solid var(--line);}
   body.nav-open{overflow:hidden;}
 
-  .hero{padding-top:112px;background:radial-gradient(120% 34% at 50% 68%,#1B1570 0%,#0C0F3C 46%,var(--abyss) 82%);}
-  .hero-stage{height:250px;margin-top:8px;}
-  .hero-kicker{font-size:.75rem;padding:6px 14px;}
-  .hero-actions .btn{width:100%;justify-content:center;}
-  .hero-facts{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:4px;text-align:left;}
+  .hero{padding-top:108px;}
+  .hero-stage{height:300px;margin-top:4px;
+    -webkit-mask-image:radial-gradient(ellipse 78% 60% at 50% 52%,#000 52%,transparent 100%);
+            mask-image:radial-gradient(ellipse 78% 60% at 50% 52%,#000 52%,transparent 100%);}
+  .hero-facts{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:8px;}
 
   .services-intro{grid-column:1 / -1;}
   .service{row-gap:10px;}

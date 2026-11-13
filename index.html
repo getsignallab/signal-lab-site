@@ -86,12 +86,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
 <main id="main">
 
   <!-- Hero -->
-  <section class="hero" data-scene>
-    <canvas class="hero-canvas" aria-hidden="true"></canvas>
-    <picture>
-      <source media="(max-width:760px)" srcset="/img/hero-still-mobile.webp">
-      <img class="hero-still" src="/img/hero-still-desktop.webp" alt="" loading="lazy" decoding="async">
-    </picture>
+  <section class="hero">
     <div class="wrap">
       <div class="hero-copy">
         <p class="hero-kicker">Paid advertising and lead generation in Florida</p>
@@ -102,7 +97,15 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
           <p class="fine">Month-to-month. No contract. No leads in your first 30 days? You don't pay our fee.</p>
         </div>
       </div>
-      <div class="hero-stage" aria-hidden="true"></div>
+    </div>
+    <div class="hero-stage" data-scene aria-hidden="true">
+      <canvas class="hero-canvas"></canvas>
+      <picture>
+        <source media="(max-width:760px)" srcset="/img/hero-still-mobile.webp">
+        <img class="hero-still" src="/img/hero-still-desktop.webp" alt="" loading="lazy" decoding="async">
+      </picture>
+    </div>
+    <div class="wrap">
       <dl class="hero-facts">
         <div><dt>Region</dt><dd>Florida, local service businesses only</dd></div>
         <div><dt>Channels</dt><dd>Facebook and Instagram advertising</dd></div>

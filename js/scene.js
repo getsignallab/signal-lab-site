@@ -77,14 +77,13 @@
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-    var HALF_FOV_TAN = Math.tan(17 * Math.PI / 180);
 
     /* Lit backdrop, drawn in the scene so the canvas can stay opaque. Matches the CSS gradient. */
     var backdrop = { uC: { value: new THREE.Vector2(0.73, 0.54) }, uA: { value: 1 } };
     var bg = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
       depthTest: false, depthWrite: false, uniforms: backdrop,
       vertexShader: 'varying vec2 vU;void main(){vU=uv;gl_Position=vec4(position.xy,0.0,1.0);}',
-      fragmentShader: 'varying vec2 vU;uniform vec2 uC;uniform float uA;void main(){vec2 d=(vU-uC)*vec2(uA,1.0);float r=length(d);vec3 col=mix(vec3(0.106,0.082,0.44),vec3(0.047,0.059,0.235),smoothstep(0.0,0.22,r));col=mix(col,vec3(0.02,0.024,0.102),smoothstep(0.12,0.5,r));gl_FragColor=vec4(col,1.0);}'
+      fragmentShader: 'varying vec2 vU;uniform vec2 uC;uniform float uA;void main(){vec2 d=(vU-uC)*vec2(uA,1.0);float r=length(d);vec3 col=mix(vec3(0.106,0.082,0.44),vec3(0.047,0.059,0.235),smoothstep(0.0,0.42,r));col=mix(col,vec3(0.02,0.024,0.102),smoothstep(0.25,0.85,r));gl_FragColor=vec4(col,1.0);}'
     }));
     bg.frustumCulled = false; bg.renderOrder = -10; scene.add(bg);
 
@@ -166,7 +165,7 @@
     var flow = new Float32Array(N * 3), bars = [1.0, 1.5, 1.35, 2.1, 2.7, 3.3, 4.2], barVol = bars.reduce(function (a, b) { return a + b; }, 0);
     for (i = 0; i < N; i++) {
       j = i * 3;
-      T[0][j] = (rnd() - 0.72) * 26; T[0][j + 1] = (rnd() - 0.5) * 12; T[0][j + 2] = (rnd() - 0.5) * 10;
+      T[0][j] = (rnd() - 0.5) * 26; T[0][j + 1] = (rnd() - 0.5) * 12; T[0][j + 2] = (rnd() - 0.5) * 10;
       var rad = 0.16 + Math.pow(rnd(), 1.7) * 1.5;
       flow[j] = rnd() * 6.2832; flow[j + 1] = rnd() * 6.2832; flow[j + 2] = rad; L[1][i] = rad < 0.4 ? 1 : 0;
       var gx = Math.floor(rnd() * 22), gy = Math.floor(rnd() * 12), gz = Math.floor(rnd() * 6);
@@ -185,7 +184,8 @@
     geo.setAttribute('aLimeFrom', lFrom); geo.setAttribute('aLimeTo', lTo);
     geo.setAttribute('aFlow', new THREE.BufferAttribute(flow, 3));
     geo.setAttribute('aRand', new THREE.BufferAttribute(rand, 1));
-    function pointScale(count) { return dpr * Math.min(Math.sqrt(REFERENCE / count), 1.7); }   // fewer particles are drawn larger
+    var sizeK = 1;   // shrinks the points with the ribbon on small stages, set in resize()
+    function pointScale(count) { return dpr * sizeK * Math.min(Math.sqrt(REFERENCE / count), 1.7); }   // fewer particles are drawn larger
     var uniforms = { uMix: { value: 1 }, uTime: { value: 0 }, uOrder: { value: 0 }, uPx: { value: pointScale(N) }, uFlowFrom: { value: 0 }, uFlowTo: { value: 0 } };
     var points = new THREE.Points(geo, new THREE.ShaderMaterial({
       uniforms: uniforms, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
@@ -235,20 +235,20 @@
       dirty = 2;
     }
 
-    /* Framing: the ribbon is centred on the .hero-stage placeholder in the layout, and
-       the camera backs off until the ribbon is the width that space allows. */
-    var stageEl = hero.querySelector('.hero-stage');
+    /* Framing: the canvas fills its own stage box, never the copy above it. The ribbon is
+       centred in that box and sized so the whole ribbon fits inside. */
     function resize() {
       var w = hero.clientWidth, h = hero.clientHeight, aspect = w / h;
       renderer.setSize(w, h, false); camera.aspect = aspect;
-      var hr = hero.getBoundingClientRect(), sr = stageEl ? stageEl.getBoundingClientRect() : { top: hr.top + h * 0.4, height: h * 0.4 };
-      var cyp = (sr.top - hr.top + sr.height / 2) / h;
-      var halfWidthPx = Math.min(w * 0.4, sr.height * 0.82, 350);   // on-screen half-width of the ribbon
-      var z = (2.9 * (w / 2) / halfWidthPx) / (HALF_FOV_TAN * aspect);
-      var halfH = HALF_FOV_TAN * z;
+      var halfWidthPx = Math.min(w * 0.4, h * 0.6, 330);   // on-screen half-width; 0.6 of the height keeps every rotation inside the box
+      /* Keep the camera at a fixed distance and narrow the lens instead, so the ribbon's
+         perspective looks the same whatever shape the stage is. */
+      var z = 14, tanHalf = (2.9 * (w / 2) / halfWidthPx) / (z * aspect);
+      camera.fov = 2 * Math.atan(tanHalf) * 180 / Math.PI;
       camera.position.set(0, 0, z);
-      holder.position.set(0, (0.5 - cyp) * 2 * halfH, 0);
-      backdrop.uA.value = aspect; backdrop.uC.value.set(0.5, 1 - cyp);
+      holder.position.set(0, -0.02 * tanHalf * z, 0);
+      backdrop.uA.value = aspect; backdrop.uC.value.set(0.5, 0.48);
+      sizeK = Math.max(0.55, Math.min(1, halfWidthPx / 330));
       uniforms.uPx.value = pointScale(level === 'balanced' ? BALANCED.particles : LIGHT.particles);
       camera.updateProjectionMatrix(); dirty = 2;
     }
@@ -313,9 +313,10 @@
       if (slowWindows >= 3) { slowWindows = 0; startedAt = now; stepDown(); }
     }
 
-    hero.addEventListener('pointermove', function (e) { var r = hero.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width - 0.5; ty = (e.clientY - r.top) / r.height - 0.5; });
-    hero.addEventListener('pointerleave', function () { tx = 0; ty = 0; });
-    window.addEventListener('scroll', function () { var r = hero.getBoundingClientRect(); scrollP = Math.max(0, Math.min(1, -r.top / r.height)); }, { passive: true });
+    var section = hero.closest('section') || hero;   // pointer and scroll are read from the whole hero
+    section.addEventListener('pointermove', function (e) { var r = section.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width - 0.5; ty = (e.clientY - r.top) / r.height - 0.5; });
+    section.addEventListener('pointerleave', function () { tx = 0; ty = 0; });
+    window.addEventListener('scroll', function () { var r = section.getBoundingClientRect(); scrollP = Math.max(0, Math.min(1, -r.top / r.height)); }, { passive: true });
     if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { onScreen = en[0].isIntersecting; }).observe(hero);
     if ('ResizeObserver' in window) new ResizeObserver(resize).observe(hero); else window.addEventListener('resize', resize);
     canvas.addEventListener('webglcontextlost', function (e) { e.preventDefault(); lost = true; useStillImage(); });
