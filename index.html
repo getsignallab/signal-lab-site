@@ -25,13 +25,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="twitter:title" content="Signal Lab — More Booked Customers for Florida Local Businesses">
 <meta name="twitter:description" content="Signal Lab helps local service businesses across Florida get more calls, bookings, and booked jobs with Meta ads, lead generation, and simple follow-up systems.">
 <meta name="twitter:image" content="https://growsignallab.com/og-image.png">
-<meta name="theme-color" content="#F4F1EA">
+<meta name="theme-color" content="#05061A">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preload" href="/fonts/newsreader-display.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/newsreader-display-italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/syne.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/site.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Signal Lab","url":"https://growsignallab.com/","email":"getsignallab@gmail.com","image":"https://growsignallab.com/og-image.png","description":"Paid advertising, lead generation and lead follow-up for local service businesses across Florida.","areaServed":{"@type":"State","name":"Florida"},"address":{"@type":"PostalAddress","addressLocality":"Miami","addressRegion":"FL","addressCountry":"US"},"knowsLanguage":["en","es"]}
@@ -54,6 +53,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 <script src="/js/site.js" defer></script>
+<script src="/js/scene.js" defer></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -66,9 +66,9 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
 
 <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-header">
+<header class="site-header site-header--over">
   <div class="wrap">
-    <a href="/" class="wordmark" aria-label="Signal Lab home">Signal <em>Lab</em></a>
+    <a href="/" class="wordmark" aria-label="Signal Lab home">Signal<em>Lab</em></a>
     <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav">Menu</button>
     <nav class="nav" id="siteNav" aria-label="Main">
       <a href="#services">Services</a>
@@ -84,31 +84,28 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
 <main id="main">
 
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero" data-scene>
+    <canvas class="hero-canvas" aria-hidden="true"></canvas>
+    <picture>
+      <source media="(max-width:760px)" srcset="/img/hero-still-mobile.webp">
+      <img class="hero-still" src="/img/hero-still-desktop.webp" alt="" loading="lazy" decoding="async">
+    </picture>
     <div class="wrap">
-      <div class="hero-meta label">
-        <span>Paid advertising &amp; lead generation</span>
-        <span>For local service businesses</span>
-        <span>Florida</span>
-      </div>
-      <h1 class="display">Growth should be <em>intentional.</em></h1>
-      <svg class="signal" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 28.0 L6 50.1 L12 42.4 L20 11.2 L29 10.4 L37 13.0 L43 35.3 L55 17.3 L61 47.6 L74 44.5 L82 67.0 L87 60.0 L95 20.5 L101 29.6 L112 23.2 L122 47.1 L130 42.4 L135 18.1 L142 48.8 L150 31.1 L160 37.8 L168 53.4 L178 28.7 L188 41.1 L200 49.6 L207 59.6 L213 36.7 L224 26.5 L233 22.6 L243 49.7 L253 53.4 L260 46.8 L270 42.7 L279 51.1 L291 39.2 L302 26.7 L312 44.3 L325 49.0 L333 36.9 L343 27.6 L352 31.6 L358 29.2 L369 31.3 L376 37.5 L388 30.9 L396 41.0 L408 46.3 L420 35.8 L428 37.5 L441 47.8 L447 34.7 L454 35.8 L463 41.4 L470 32.8 L478 38.2 L487 46.0 L498 40.2 L508 42.0 L513 44.5 L525 43.9 L536 39.0 L544 36.4 L554 36.3 L560 37.7 L566 38.8 L572 36.3 L578 37.2 L586 36.9 L598 40.7 L604 38.7 L612 39.3 L618 41.6 L631 39.9 L639 38.5 L645 39.5 L652 41.0 L659 38.7 L671 40.1 L677 40.1 L683 40.0 L695 40.5 L706 39.8 L714 39.7 L725 40.0 L736 40.0 L743 40.0 L756 40.0 L760 40 H1200"/></svg>
-      <div class="grid">
-        <dl class="hero-facts">
-          <div><dt>Region</dt><dd>Florida, local service businesses only</dd></div>
-          <div><dt>Channels</dt><dd>Facebook + Instagram advertising</dd></div>
-          <div><dt>Follow-up</dt><dd>English and Spanish</dd></div>
-          <div><dt>Contact</dt><dd>Direct with the founder, no account managers</dd></div>
-        </dl>
-        <div class="hero-body">
-          <p class="lede">We help local service businesses across Florida turn paid advertising into measurable customer growth: more calls, estimate requests and booked jobs.</p>
-          <div class="hero-actions">
-            <a href="#contact" class="btn"><span>Schedule a strategy call</span><svg class="arrow" aria-hidden="true"><use href="#arrow"/></svg></a>
-            <a href="#proof" class="link">See the work</a>
-          </div>
+      <div class="hero-copy">
+        <p class="hero-kicker">Paid advertising and lead generation for Florida service businesses</p>
+        <h1 class="display">Growth should be <span class="signal-word">intentional.</span></h1>
+        <p class="lede">We help local service businesses across Florida turn paid advertising into measurable customer growth: more calls, estimate requests and booked jobs.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn">Schedule a strategy call</a>
           <p class="fine">Month-to-month. No contract. No leads in your first 30 days? You don't pay our fee.</p>
         </div>
       </div>
+      <dl class="hero-facts">
+        <div><dt>Region</dt><dd>Florida, local service businesses only</dd></div>
+        <div><dt>Channels</dt><dd>Facebook and Instagram advertising</dd></div>
+        <div><dt>Follow-up</dt><dd>English and Spanish</dd></div>
+        <div><dt>Contact</dt><dd>Direct with the founder</dd></div>
+      </dl>
     </div>
   </section>
 
@@ -479,7 +476,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
 
 <footer class="site-footer inverse">
   <div class="wrap">
-    <p class="footer-mark" aria-hidden="true">Signal <em>Lab</em></p>
+    <p class="footer-mark" aria-hidden="true">Signal<em>Lab</em></p>
     <div class="footer-row">
       <span>© 2026 Signal Lab. Serving local businesses across Florida.</span>
       <a class="link" href="mailto:getsignallab@gmail.com">getsignallab@gmail.com</a>
