@@ -84,7 +84,7 @@
     var bg = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
       depthTest: false, depthWrite: false, uniforms: backdrop,
       vertexShader: 'varying vec2 vU;void main(){vU=uv;gl_Position=vec4(position.xy,0.0,1.0);}',
-      fragmentShader: 'varying vec2 vU;uniform vec2 uC;uniform float uA;void main(){vec2 d=(vU-uC)*vec2(uA,1.0);float r=length(d);vec3 col=mix(vec3(0.106,0.082,0.44),vec3(0.047,0.059,0.235),smoothstep(0.0,0.3,r));col=mix(col,vec3(0.02,0.024,0.102),smoothstep(0.18,0.66,r));gl_FragColor=vec4(col,1.0);}'
+      fragmentShader: 'varying vec2 vU;uniform vec2 uC;uniform float uA;void main(){vec2 d=(vU-uC)*vec2(uA,1.0);float r=length(d);vec3 col=mix(vec3(0.106,0.082,0.44),vec3(0.047,0.059,0.235),smoothstep(0.0,0.22,r));col=mix(col,vec3(0.02,0.024,0.102),smoothstep(0.12,0.5,r));gl_FragColor=vec4(col,1.0);}'
     }));
     bg.frustumCulled = false; bg.renderOrder = -10; scene.add(bg);
 
@@ -235,16 +235,21 @@
       dirty = 2;
     }
 
-    /* Framing: the ribbon sits right of the copy on wide screens and above it on phones.
-       The camera backs off until the ribbon's width fits the available space. */
+    /* Framing: the ribbon is centred on the .hero-stage placeholder in the layout, and
+       the camera backs off until the ribbon is the width that space allows. */
+    var stageEl = hero.querySelector('.hero-stage');
     function resize() {
-      var w = hero.clientWidth, h = hero.clientHeight, aspect = w / h, narrow = w < 760;
+      var w = hero.clientWidth, h = hero.clientHeight, aspect = w / h;
       renderer.setSize(w, h, false); camera.aspect = aspect;
-      var z = Math.max(narrow ? 13.5 : 12.6, (narrow ? 3.4 : 6.7) / (HALF_FOV_TAN * aspect));
-      var halfH = HALF_FOV_TAN * z, cxp = narrow ? 0.5 : 0.71, cyp = narrow ? Math.min(185 / h, 0.3) : 0.47;
+      var hr = hero.getBoundingClientRect(), sr = stageEl ? stageEl.getBoundingClientRect() : { top: hr.top + h * 0.4, height: h * 0.4 };
+      var cyp = (sr.top - hr.top + sr.height / 2) / h;
+      var halfWidthPx = Math.min(w * 0.4, sr.height * 0.82, 350);   // on-screen half-width of the ribbon
+      var z = (2.9 * (w / 2) / halfWidthPx) / (HALF_FOV_TAN * aspect);
+      var halfH = HALF_FOV_TAN * z;
       camera.position.set(0, 0, z);
-      holder.position.set((cxp - 0.5) * 2 * halfH * aspect, (0.5 - cyp) * 2 * halfH, 0);
-      backdrop.uA.value = aspect; backdrop.uC.value.set(cxp, 1 - cyp);
+      holder.position.set(0, (0.5 - cyp) * 2 * halfH, 0);
+      backdrop.uA.value = aspect; backdrop.uC.value.set(0.5, 1 - cyp);
+      uniforms.uPx.value = pointScale(level === 'balanced' ? BALANCED.particles : LIGHT.particles);
       camera.updateProjectionMatrix(); dirty = 2;
     }
 
@@ -253,7 +258,7 @@
       if (level === 'balanced') {
         level = 'light';
         dpr = Math.min(dpr, LIGHT.dpr); renderer.setPixelRatio(dpr);
-        geo.setDrawRange(0, LIGHT.particles); uniforms.uPx.value = pointScale(LIGHT.particles);
+        geo.setDrawRange(0, LIGHT.particles);
         /* Bake the chrome: render the reflective material once onto a sphere and reuse
            that image as a one-lookup material. */
         var baked = new THREE.WebGLRenderTarget(256, 256);
