@@ -312,6 +312,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
     .ambient-glow{display:none;}
   }
+
+  .nav-right{display:flex;align-items:center;gap:10px;}
+  .lang-toggle{
+    background:none;border:1px solid var(--line);color:var(--charcoal);
+    padding:9px 14px;border-radius:100px;font-family:'Space Grotesk',sans-serif;
+    font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:border-color .2s;
+  }
+  .lang-toggle:hover{border-color:var(--charcoal);}
+  @media (max-width:760px){.nav-right{gap:8px;}.lang-toggle{padding:7px 11px;font-size:12px;}}
+  @media (max-width:420px){.nav-right{gap:6px;}.lang-toggle{padding:6px 9px;font-size:11px;}}
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -343,7 +353,10 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
       <a href="#process">Process</a>
       <a href="#why">Why Signal Lab</a>
     </div>
-    <a href="#contact" class="nav-cta">Apply Now</a>
+    <div class="nav-right">
+      <button type="button" class="lang-toggle" id="langToggle" lang="es" aria-label="Ver esta página en español">Español</button>
+      <a href="#contact" class="nav-cta">Apply Now</a>
+    </div>
   </nav>
 
   <main>
@@ -523,6 +536,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
       <div class="wizard-progress"><div class="wizard-progress-fill" id="wizardFill"></div></div>
 
       <form id="leadForm" action="https://formspree.io/f/xbdneall" method="POST">
+        <input type="hidden" id="f-language" name="page_language" value="English">
         <div class="wizard-step active" data-step="1">
           <span class="step-tag">[01]</span>
           <h3>Full Name*</h3>
@@ -645,7 +659,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
   function currentStepValid(){
     const requiredFields = steps[current].querySelectorAll('[required]');
     for (const field of requiredFields) {
-      if (!field.value.trim()) { field.reportValidity ? field.reportValidity() : alert('Please fill this in.'); return false; }
+      if (!field.value.trim()) { field.reportValidity ? field.reportValidity() : alert(slT('Please fill this in.')); return false; }
     }
     return true;
   }
@@ -681,7 +695,7 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
     if (!currentStepValid()) return;
     const submitBtn = leadForm.querySelector('.wizard-next[type="submit"]');
     const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Sending…';
+    submitBtn.textContent = slT('Sending…');
     submitBtn.disabled = true;
 
     try {
@@ -698,12 +712,12 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
       } else {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-        alert("Something went wrong sending your info. Please try again, or email getsignallab@gmail.com directly.");
+        alert(slT("Something went wrong sending your info. Please try again, or email getsignallab@gmail.com directly."));
       }
     } catch (error) {
       submitBtn.textContent = originalText;
       submitBtn.disabled = false;
-      alert("Something went wrong sending your info. Please try again, or email getsignallab@gmail.com directly.");
+      alert(slT("Something went wrong sending your info. Please try again, or email getsignallab@gmail.com directly."));
     }
   });
 
@@ -983,6 +997,70 @@ src="https://www.facebook.com/tr?id=1598768665331540&ev=PageView&noscript=1"
     } else {
       window.addEventListener('load', loadCal);
     }
+  })();
+</script>
+
+
+<script>
+  /* English / Spanish switch */
+  var SL_ES = {"Services": "Servicios","Process": "Proceso","Why Signal Lab": "Por qué Signal Lab","Apply Now": "Aplicar ahora","Now taking on founding clients": "Aceptando clientes fundadores","Turn Local Attention Into": "Convierta la atención local en","Booked Customers.": "clientes agendados.","For local service businesses across Florida.": "Para negocios de servicios locales en toda Florida.","I run Facebook and Instagram ads that bring you more calls, bookings, and booked jobs.": "Manejo anuncios en Facebook e Instagram que le traen más llamadas, citas y trabajos agendados.","See How I Help": "Vea cómo le ayudo","Local service businesses only": "Solo negocios de servicios locales","Meta ads specialist": "Especialista en anuncios de Meta","Direct": "Directo","You work with me, no account managers": "Usted trabaja conmigo, sin gerentes de cuenta","What I do": "Lo que hago","More Booked Customers": "Más clientes agendados","everything works toward it": "todo trabaja para eso","Content & Social": "Contenido y redes sociales","Posts and ad creative that show your real work, so people trust you before they ever call — planned and published consistently.": "Publicaciones y anuncios que muestran su trabajo real, para que la gente confíe en usted antes de llamar, planificados y publicados con constancia.","Meta Ads": "Anuncios en Meta","Local campaigns on Facebook and Instagram built around one job: turning ad spend into calls, bookings, and estimate requests from people near you.": "Campañas locales en Facebook e Instagram con un solo objetivo: convertir su inversión en anuncios en llamadas, citas y solicitudes de presupuesto de personas cerca de usted.","Offer & Messaging": "Oferta y mensaje","A clear offer and message that makes your business the obvious local choice — not the cheapest, the clearest.": "Una oferta y un mensaje claros que hacen de su negocio la opción local obvia: no la más barata, la más clara.","Reporting": "Reportes","A plain-language weekly report: how many leads came in, what they cost, and what I'm changing next.": "Un reporte semanal en lenguaje sencillo: cuántos prospectos llegaron, cuánto costaron y qué voy a cambiar después.","Lead Follow-Up": "Seguimiento de prospectos","A lead is only worth something if it turns into a booked job. You get a simple call and text script (English and Spanish) so every new lead hears from you fast, from click to booked job.": "Un prospecto solo vale algo si se convierte en un trabajo agendado. Usted recibe un guion sencillo de llamada y mensaje de texto (en inglés y español) para que cada nuevo prospecto sepa de usted rápido, desde el clic hasta el trabajo agendado.","How It Starts": "Cómo empieza","four steps, zero fluff": "cuatro pasos, sin relleno","Growth Strategy Call": "Llamada de estrategia de crecimiento","A free 30-minute call to understand your business, your customers, and where new jobs come from today — so we both know if this is a fit.": "Una llamada gratis de 30 minutos para entender su negocio, sus clientes y de dónde vienen hoy los trabajos nuevos, para que ambos sepamos si esto es para usted.","Strategy": "Estrategia","A simple plan built around your business—not a generic template. I pick the highest-impact moves first and lay out exactly what happens next.": "Un plan sencillo hecho para su negocio, no una plantilla genérica. Elijo primero las acciones de mayor impacto y le explico exactamente qué sigue.","Launch": "Lanzamiento","Once you approve it, I launch your ads and content and keep you updated every step of the way.": "Cuando usted lo aprueba, lanzo sus anuncios y contenido y le mantengo informado en cada paso.","Scale": "Crecimiento","I track every lead, cut what doesn't work, and push what does so you get more booked customers month after month.": "Doy seguimiento a cada prospecto, quito lo que no funciona e impulso lo que sí, para que tenga más clientes agendados mes tras mes.","Limited Founding Client Openings": "Cupos limitados para clientes fundadores","I'm taking on a small number of founding clients to build long-term success stories. Every client gets direct communication, a personalized plan, and hands-on execution from me from day one.": "Estoy aceptando un número pequeño de clientes fundadores para construir casos de éxito a largo plazo. Cada cliente recibe comunicación directa, un plan personalizado y ejecución práctica de mi parte desde el primer día.","founding spots available": "cupos de fundador disponibles","Founding-rate pricing, locked in": "Precio de fundador, garantizado","Direct access, no account managers": "Acceso directo, sin gerentes de cuenta","First look at every result": "Primer vistazo a cada resultado","what makes this different": "lo que hace esto diferente","Direct Communication": "Comunicación directa","You work directly with me—the person running your ads and content. No account managers, no middlemen.": "Usted trabaja directamente conmigo, la persona que maneja sus anuncios y contenido. Sin gerentes de cuenta ni intermediarios.","Built for Local Service": "Hecho para servicios locales","I only work with local service businesses, so everything is built around what matters to you: calls, bookings, and booked jobs—not likes.": "Solo trabajo con negocios de servicios locales, así que todo está construido alrededor de lo que le importa: llamadas, citas y trabajos agendados, no «me gusta».","AI-Powered Execution": "Ejecución con inteligencia artificial","I use modern AI tools and automation to move faster and respond quicker, without sacrificing quality.": "Uso herramientas modernas de IA y automatización para avanzar más rápido y responder antes, sin sacrificar la calidad.","Who it's for": "Para quién es","Is This a Fit?": "¿Es para usted?","honest from day one": "honesto desde el primer día","[GOOD FIT]": "[ES PARA USTED]","You're a good fit if": "Es para usted si","You run a local service business in Florida (home services, beauty, wellness and more)": "Tiene un negocio de servicios locales en Florida (servicios para el hogar, belleza, bienestar y más)","You can take on more jobs or appointments right now": "Puede aceptar más trabajos o citas ahora mismo","You (or your team) answer new leads fast": "Usted (o su equipo) responde rápido a los nuevos prospectos","You can invest at least $20/day in ads": "Puede invertir al menos $20 al día en anuncios","[NOT A FIT]": "[NO ES PARA USTED]","Probably not a fit if": "Probablemente no es para usted si","You're fully booked with no room for new customers": "Está completamente lleno y no tiene espacio para clientes nuevos","Nobody can call new leads back within an hour": "Nadie puede devolver la llamada a un prospecto en menos de una hora","You expect results overnight": "Espera resultados de la noche a la mañana","You just want likes and followers, not booked jobs": "Solo quiere «me gusta» y seguidores, no trabajos agendados","Meet Tony": "Conozca a Tony","founder of signal lab": "fundador de signal lab","I created Signal Lab to give local service businesses across Florida direct access to marketing that brings in real customers—without the complexity and overhead of a traditional agency. Every client works directly with me, from strategy and content to ads and reporting.": "Creé Signal Lab para darles a los negocios de servicios locales de Florida acceso directo a un marketing que trae clientes reales, sin la complejidad ni los costos de una agencia tradicional. Cada cliente trabaja directamente conmigo, desde la estrategia y el contenido hasta los anuncios y los reportes.","Get started": "Empiece aquí","Let's Talk About Your Business": "Hablemos de su negocio","Apply for a free 30-minute Growth Strategy Call. I'll look at how you get customers today and where the quickest wins are.": "Solicite una llamada gratis de estrategia de crecimiento de 30 minutos. Revisaré cómo consigue clientes hoy y dónde están las mejoras más rápidas.","Full Name*": "Nombre completo*","Continue": "Continuar","Share your website or Instagram:*": "Comparta su sitio web o Instagram:*","(I'll review it before we talk so the call is useful)": "(Lo revisaré antes de hablar para que la llamada sea útil)","Back": "Atrás","What is your current monthly revenue range?*": "¿Cuál es su rango actual de ingresos mensuales?*","(Answer honestly—this helps me see where you are and how I can help)": "(Responda con honestidad: esto me ayuda a ver dónde está y cómo puedo ayudarle)","Under $5K/month": "Menos de $5K al mes","$5K–$15K/month": "$5K–$15K al mes","$15K–$30K/month": "$15K–$30K al mes","$30K–$75K/month": "$30K–$75K al mes","$75K+/month": "$75K+ al mes","What is your current ad spend budget range?*": "¿Cuál es su presupuesto actual de anuncios?*","$0 — never run ads": "$0, nunca he hecho anuncios","Under $500/month": "Menos de $500 al mes","$500–$1.5K/month": "$500–$1.5K al mes","$1.5K–$5K/month": "$1.5K–$5K al mes","$5K+/month": "$5K+ al mes","What type of business are you running?*": "¿Qué tipo de negocio tiene?*","Home services / contractor": "Servicios para el hogar / contratista","Beauty / salon / spa": "Belleza / salón / spa","Health / wellness / fitness": "Salud / bienestar / fitness","Other local service business": "Otro negocio de servicios locales","Fill out your contact information.*": "Complete su información de contacto.*","Phone number*": "Número de teléfono*","Email*": "Correo electrónico*","I'll follow up within 24 hours — or book a time now on the next screen.": "Le contactaré en menos de 24 horas, o agende una hora ahora en la siguiente pantalla.","You're in": "Listo","Thank You for": "¡Gracias por","Applying!": "aplicar!","I've got your info and will follow up within 24 hours. Want to skip the wait? Grab a time on my calendar now:": "Ya tengo su información y le contactaré en menos de 24 horas. ¿No quiere esperar? Reserve una hora en mi calendario ahora:","Schedule Your Call →": "Agende su llamada →","© 2026 Signal Lab. All rights reserved.": "© 2026 Signal Lab. Todos los derechos reservados.","Privacy Policy": "Política de privacidad","Type your answer here…": "Escriba su respuesta aquí…","Please fill this in.": "Por favor complete este campo.","Sending…": "Enviando…","Something went wrong sending your info. Please try again, or email getsignallab@gmail.com directly.": "Algo salió mal al enviar su información. Inténtelo de nuevo o escriba directamente a getsignallab@gmail.com.","Signal Lab — More Booked Customers for Florida Local Businesses": "Signal Lab — Más clientes agendados para negocios locales de Florida"};
+  var slLang = 'en';
+  function slT(s){ return (slLang === 'es' && SL_ES[s]) ? SL_ES[s] : s; }
+  (function(){
+    var EN_TITLE = document.title;
+    var nodes = [], attrs = [];
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(n){
+        var p = n.parentNode && n.parentNode.nodeName;
+        if (p === 'SCRIPT' || p === 'STYLE' || p === 'NOSCRIPT') return NodeFilter.FILTER_REJECT;
+        if (n.parentNode.id === 'langToggle') return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var n;
+    while ((n = walker.nextNode())){
+      var key = n.nodeValue.replace(/\s+/g, ' ').trim();
+      if (key && SL_ES[key]) nodes.push({ node: n, en: n.nodeValue, key: key });
+    }
+    document.querySelectorAll('[placeholder]').forEach(function(el){
+      var ph = el.getAttribute('placeholder');
+      if (SL_ES[ph]) attrs.push({ el: el, en: ph });
+    });
+    var btn = document.getElementById('langToggle');
+    var langField = document.getElementById('f-language');
+
+    function setLang(lang, remember){
+      slLang = lang === 'es' ? 'es' : 'en';
+      nodes.forEach(function(item){
+        if (slLang === 'es'){
+          var lead = item.en.match(/^\s*/)[0], trail = item.en.match(/\s*$/)[0];
+          item.node.nodeValue = lead + SL_ES[item.key] + trail;
+        } else {
+          item.node.nodeValue = item.en;
+        }
+      });
+      attrs.forEach(function(item){
+        item.el.setAttribute('placeholder', slLang === 'es' ? SL_ES[item.en] : item.en);
+      });
+      document.documentElement.lang = slLang;
+      document.title = slLang === 'es' ? (SL_ES[EN_TITLE] || EN_TITLE) : EN_TITLE;
+      if (langField) langField.value = slLang === 'es' ? 'Spanish' : 'English';
+      if (btn){
+        btn.textContent = slLang === 'es' ? 'English' : 'Espa\u00f1ol';
+        btn.setAttribute('lang', slLang === 'es' ? 'en' : 'es');
+        btn.setAttribute('aria-label', slLang === 'es' ? 'View this page in English' : 'Ver esta p\u00e1gina en espa\u00f1ol');
+      }
+      if (remember){ try { localStorage.setItem('sl_lang', slLang); } catch(e){} }
+    }
+
+    if (btn) btn.addEventListener('click', function(){ setLang(slLang === 'es' ? 'en' : 'es', true); });
+
+    var initial = null;
+    var q = (window.location.search.match(/[?&]lang=(es|en)\b/i) || [])[1];
+    if (q) initial = q.toLowerCase();
+    if (!initial){ try { initial = localStorage.getItem('sl_lang'); } catch(e){} }
+    if (!initial && /^es\b/i.test(navigator.language || '')) initial = 'es';
+    if (initial === 'es') setLang('es', false);
   })();
 </script>
 
