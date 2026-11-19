@@ -249,7 +249,7 @@ SOBRE = phero('Sobre Yeilis', 'Sobre Yeilis', 'Yeilis Armas, <em>la Reina de los
     </div>
   </div>
 </section>
-''' + fin()
+'''
 
 # ---------------------------------------------------------------- SERVICIOS
 SERVICIOS = phero('Servicios', 'Servicios', 'Todos los <em>servicios</em>', 'Cada cita empieza por entender tu cabello. Si no sabes cuál elegir, reserva la consulta gratuita y Yeilis te orienta.',
@@ -283,7 +283,7 @@ SERVICIOS = phero('Servicios', 'Servicios', 'Todos los <em>servicios</em>', 'Cad
     </div>
   </div>
 </section>
-''' + fin()
+'''
 
 # ---------------------------------------------------------------- UNIVERSO RIZADO
 UNIVERSO = f'''<section class="band rizos" style="padding-top:clamp(22px,3vw,40px)">
@@ -344,7 +344,7 @@ UNIVERSO = f'''<section class="band rizos" style="padding-top:clamp(22px,3vw,40p
     <p style="margin-top:22px"><span class="todo">Pendiente: fotos reales de clientas, con su permiso</span></p>
   </div>
 </section>
-''' + fin()
+'''
 
 # ---------------------------------------------------------------- GALERÍA
 GALERIA = phero('Galería', 'Galería', 'Antes y <em>después</em>', 'Aquí se mostrará el trabajo de Yeilis: transformaciones reales de sus clientas, con su permiso. Desliza cada imagen para comparar.',
@@ -365,7 +365,7 @@ GALERIA = phero('Galería', 'Galería', 'Antes y <em>después</em>', 'Aquí se m
     </div>
   </div>
 </section>
-''' + fin()
+'''
 
 # ---------------------------------------------------------------- ACADEMIA
 ACADEMIA = phero('Academia', 'Academia', 'Academia de la Reina de los <em>Rizos</em>', 'El próximo capítulo de la marca. Yeilis quiere enseñar a mujeres de todo el mundo a cuidar y recuperar su cabello rizado con su propia metodología, desde cualquier lugar.',
@@ -387,7 +387,7 @@ ACADEMIA = phero('Academia', 'Academia', 'Academia de la Reina de los <em>Rizos<
     </ul>
   </div>
 </section>
-''' + fin('Mientras tanto, empieza <em>en el salón</em>', 'La mejor primera clase es una consulta con Yeilis sobre tu propio cabello.')
+'''
 
 # ---------------------------------------------------------------- TIENDA
 TIENDA = phero('Tienda', 'Tienda en línea', 'El ritual sigue <em>en casa</em>', 'Los productos que Yeilis recomienda, organizados por lo que tu cabello necesita. Así se verá el catálogo cuando ella lo entregue.',
@@ -402,7 +402,7 @@ TIENDA = phero('Tienda', 'Tienda en línea', 'El ritual sigue <em>en casa</em>',
     </div>
   </div>
 </section>
-''' + fin()
+'''
 
 # ---------------------------------------------------------------- CONTACTO
 CONTACTO = phero('Contacto', 'Contacto', 'Visítanos en <em>Hialeah</em>', 'Yeilis atiende únicamente con cita previa. La forma más rápida de verla es reservar tu consulta gratuita.',
@@ -419,7 +419,7 @@ CONTACTO = phero('Contacto', 'Contacto', 'Visítanos en <em>Hialeah</em>', 'Yeil
     </div>
   </div>
 </section>
-''' + fin()
+'''
 
 # ---------------------------------------------------------------- RESERVAR
 RESERVAR = f'''<main class="rsv">
