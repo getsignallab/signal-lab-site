@@ -511,7 +511,7 @@ a.cat:hover{transform:translateY(-6px);border-color:var(--line-rose);box-shadow:
   .nav a{min-height:46px;display:flex;align-items:center}
   .nav-more,.nav-sub{display:contents}
   .nav-more>button{display:none}
-  .nav-sub{opacity:1;visibility:visible;transform:none}
+  .nav-sub{opacity:1;visibility:inherit;transform:none}   /* inherit: con el menú cerrado estos enlaces no deben poder pulsarse */
   .nav-sub a{padding:10px 16px}
   .nav-sub a:hover,.nav-sub a[aria-current="page"]{background:none}
   .nav a[aria-current="page"]{color:var(--rose)}
