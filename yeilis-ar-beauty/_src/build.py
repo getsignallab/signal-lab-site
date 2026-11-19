@@ -15,16 +15,16 @@ PREVIEW = sys.argv[2] if len(sys.argv) > 2 and sys.argv[1] == '--preview' else N
 NAV_MAIN = [('home', 'Inicio'), ('servicios', 'Servicios'), ('universo-rizado', 'Universo Rizado'), ('galeria', 'Galería'), ('sobre-yeilis', 'Sobre Yeilis')]
 NAV_MORE = [('academia', 'Academia'), ('tienda', 'Tienda'), ('contacto', 'Contacto')]
 
-ARR = '<span class="arr" aria-hidden="true">→</span>'
+ARR = ''
 CROWN = '<svg class="crown" viewBox="0 0 64 40" aria-hidden="true"><path d="M5 36h54l-4-24-12 11L32 4 21 23 9 12z" fill="none" stroke="#A9757E" stroke-width="1.6" stroke-linejoin="round"/><circle cx="32" cy="3" r="2.4" fill="#A9757E"/><circle cx="8" cy="10" r="2.2" fill="#A9757E"/><circle cx="56" cy="10" r="2.2" fill="#A9757E"/></svg>'
 
 
 def more(page, text):
-    return f'<a class="more" href="@@{page}">{text} <span aria-hidden="true">→</span></a>'
+    return f'<a class="more" href="@@{page}">{text}</a>'
 
 
 def reservar_btn(text='Reservar cita', frag=''):
-    return f'<a class="btn btn-rose" href="@@reservar{frag}">{text} {ARR}</a>'
+    return f'<a class="btn btn-rose" href="@@reservar{frag}">{text}</a>'
 
 
 def ba(n, title):
@@ -44,7 +44,6 @@ def phero(crumb, eyebrow, h1, lead, extra=''):
     return f'''<section class="phero">
   <div class="wrap">
     <p class="crumb"><a href="@@home">Inicio</a><span aria-hidden="true">/</span><span>{crumb}</span></p>
-    <p class="eyebrow">{eyebrow}</p>
     <h1>{h1}</h1>
     <p class="lead">{lead}</p>{extra}
   </div>
@@ -88,7 +87,7 @@ AMBOS = [
 def rows(items, book=True):
     out = []
     for slug, name, desc, tag, cls in items:
-        link = f'<a class="more" href="@@reservar#svc-{slug}">Reservar <span aria-hidden="true">→</span></a>' if book else ''
+        link = f'<a class="more" href="@@reservar#svc-{slug}">Reservar</a>' if book else ''
         out.append(f'      <li class="rv"><h3>{name}</h3><p>{desc}</p><span class="tag{cls}">{tag}</span>{link}</li>')
     return '\n'.join(out)
 
@@ -129,10 +128,9 @@ HOME = f'''<!-- 1 · HERO -->
       <img src="@@/assets/yeilis-retrato.webp" width="500" height="500" loading="lazy" decoding="async" alt="Retrato de Yeilis Armas">
     </figure>
     <div class="stack rv">
-      <p class="eyebrow">Sobre Yeilis</p>
       <h2 class="h2">Yeilis Armas, <em>la Reina de los Rizos</em></h2>
       <p class="lead">Estilista profesional con más de 20 años de experiencia y embajadora internacional de la marca brasileña Phyto Activo. Su pasión es el cabello rizado, y domina por igual el cabello liso.</p>
-      <p class="mini-facts"><span class="tag">20+ años de experiencia</span><span class="tag">Especialista en rizos</span><span class="tag both">Embajadora Phyto Activo</span></p>
+      <p class="mini-line">Más de 20 años de experiencia · Especialista en rizos · Embajadora de Phyto Activo</p>
       {more('sobre-yeilis', 'Leer más')}
     </div>
   </div>
@@ -149,10 +147,10 @@ HOME = f'''<!-- 1 · HERO -->
       {more('servicios', 'Ver todos los servicios')}
     </div>
     <div class="cats">
-      <a class="cat star rv" href="@@universo-rizado"><span class="tag">Especialidad</span><h3>Cabello rizado</h3><p>Recuperación del rizo, cortes especializados, definición y tratamientos personalizados.</p><span class="more">Universo Rizado <span aria-hidden="true">→</span></span></a>
-      <a class="cat rv" href="@@servicios#liso"><span class="tag plain">Liso</span><h3>Cabello liso</h3><p>Keratina brasileña, botox capilar, alisado, alineación y repolarización.</p><span class="more">Ver servicios <span aria-hidden="true">→</span></span></a>
-      <a class="cat rv" href="@@servicios#ambos"><span class="tag both">Rizos y liso</span><h3>Color y mechas</h3><p>Coloración, balayage y mechas para cualquier textura.</p><span class="more">Ver servicios <span aria-hidden="true">→</span></span></a>
-      <a class="cat rv" href="@@servicios#ambos"><span class="tag both">Rizos y liso</span><h3>Extensiones y trenzas</h3><p>Largo, volumen y trenzados para cualquier textura.</p><span class="more">Ver servicios <span aria-hidden="true">→</span></span></a>
+      <a class="cat star rv" href="@@universo-rizado"><h3>Cabello rizado</h3><p>Recuperación del rizo, cortes especializados, definición y tratamientos personalizados.</p><span class="more">Universo Rizado</span></a>
+      <a class="cat rv" href="@@servicios#liso"><h3>Cabello liso</h3><p>Keratina brasileña, botox capilar, alisado, alineación y repolarización.</p><span class="more">Ver servicios</span></a>
+      <a class="cat rv" href="@@servicios#ambos"><h3>Color y mechas</h3><p>Coloración, balayage y mechas para cualquier textura.</p><span class="more">Ver servicios</span></a>
+      <a class="cat rv" href="@@servicios#ambos"><h3>Extensiones y trenzas</h3><p>Largo, volumen y trenzados para cualquier textura.</p><span class="more">Ver servicios</span></a>
     </div>
   </div>
 </section>
@@ -161,7 +159,6 @@ HOME = f'''<!-- 1 · HERO -->
 <section class="band alt" id="universo-rizado">
   <div class="wrap rizos-mini">
     <div class="stack rv">
-      <p class="eyebrow">La especialidad de la casa</p>
       <h2 class="rizos-title"><span>Universo</span><em>Rizado</em></h2>
       <p class="lead">Aquí el rizo manda. Yeilis lleva más de veinte años estudiando cómo se comporta cada textura, y creó el Programa de Recuperación del Rizo para acompañarte paso a paso.</p>
       <div class="cta-row">{reservar_btn("Reservar consulta gratuita", "#svc-consulta")}<a class="btn btn-line" href="@@universo-rizado">Explorar Universo Rizado</a></div>
@@ -197,8 +194,8 @@ HOME = f'''<!-- 1 · HERO -->
 <!-- 7 · ACADEMIA Y TIENDA -->
 <section class="band alt" id="mas">
   <div class="wrap duo">
-    <a class="cat rv" href="@@academia"><span class="soon">Próximamente</span><h3>Academia de la Reina de los Rizos</h3><p>Cursos, programas y consultas virtuales para aprender a cuidar tus rizos con la metodología de Yeilis, desde cualquier lugar.</p><span class="more">Conocer la academia <span aria-hidden="true">→</span></span></a>
-    <a class="cat rv" href="@@tienda"><span class="tag plain">Catálogo de muestra</span><h3>Tienda</h3><p>Los productos que Yeilis recomienda para continuar el ritual en casa. El catálogo real se publica cuando esté listo.</p><span class="more">Ver la tienda <span aria-hidden="true">→</span></span></a>
+    <a class="cat rv" href="@@academia"><span class="soon">Próximamente</span><h3>Academia de la Reina de los Rizos</h3><p>Cursos, programas y consultas virtuales para aprender a cuidar tus rizos con la metodología de Yeilis, desde cualquier lugar.</p><span class="more">Conocer la academia</span></a>
+    <a class="cat rv" href="@@tienda"><span class="tag plain">Catálogo de muestra</span><h3>Tienda</h3><p>Los productos que Yeilis recomienda para continuar el ritual en casa. El catálogo real se publica cuando esté listo.</p><span class="more">Ver la tienda</span></a>
   </div>
 </section>
 
@@ -258,7 +255,7 @@ SERVICIOS = phero('Servicios', 'Servicios', 'Todos los <em>servicios</em>', 'Cad
   <div class="wrap">
     <div class="svc-block" id="rizos">
       <div class="sec-head rv">
-        <div class="stack"><p class="eyebrow">Su especialidad</p><h2 class="h2">Cabello <em>rizado</em></h2></div>
+        <div class="stack"><h2 class="h2">Cabello <em>rizado</em></h2></div>
         {more('universo-rizado', 'Conocer Universo Rizado')}
       </div>
       <ul class="expert svc-rows">
@@ -267,7 +264,7 @@ SERVICIOS = phero('Servicios', 'Servicios', 'Todos los <em>servicios</em>', 'Cad
     </div>
     <div class="svc-block" id="liso">
       <div class="sec-head rv">
-        <div class="stack"><p class="eyebrow sage">También en el salón</p><h2 class="h2">Cabello liso</h2></div>
+        <div class="stack"><h2 class="h2">Cabello liso</h2></div>
       </div>
       <ul class="expert svc-rows">
 {rows(LISO)}
@@ -275,7 +272,7 @@ SERVICIOS = phero('Servicios', 'Servicios', 'Todos los <em>servicios</em>', 'Cad
     </div>
     <div class="svc-block" id="ambos">
       <div class="sec-head rv">
-        <div class="stack"><p class="eyebrow sage">Para cualquier textura</p><h2 class="h2">Rizos y liso</h2></div>
+        <div class="stack"><h2 class="h2">Rizos y liso</h2></div>
       </div>
       <ul class="expert svc-rows">
 {rows(AMBOS)}
@@ -351,13 +348,13 @@ GALERIA = phero('Galería', 'Galería', 'Antes y <em>después</em>', 'Aquí se m
                 '\n    <span class="todo">Pendiente: fotos reales. Los marcos de abajo son espacios reservados, no resultados.</span>') + f'''
 <section class="band">
   <div class="wrap">
-    <div class="sec-head rv"><div class="stack"><p class="eyebrow">Universo Rizado</p><h2 class="h2">Cabello <em>rizado</em></h2></div></div>
+    <div class="sec-head rv"><div class="stack"><h2 class="h2">Cabello <em>rizado</em></h2></div></div>
     <div class="ba-grid">
 {ba(1, 'Recuperación del rizo')}
 {ba(2, 'Corte y definición')}
 {ba(3, 'Color en rizos')}
     </div>
-    <div class="sec-head rv" style="margin-top:clamp(40px,5vw,64px)"><div class="stack"><p class="eyebrow sage">También en el salón</p><h2 class="h2">Cabello liso y color</h2></div></div>
+    <div class="sec-head rv" style="margin-top:clamp(40px,5vw,64px)"><div class="stack"><h2 class="h2">Cabello liso y color</h2></div></div>
     <div class="ba-grid">
 {ba(4, 'Alisado')}
 {ba(5, 'Color y mechas')}
@@ -507,7 +504,7 @@ RESERVAR = phero('Reservar cita', 'Citas en línea', 'Reserva tu <em>cita</em>',
 
         <div class="rsv-actions">
           <button class="btn btn-line" type="button" id="prev">Atrás</button>
-          <button class="btn btn-rose" type="submit" id="next">Continuar {ARR}</button>
+          <button class="btn btn-rose" type="submit" id="next">Continuar</button>
         </div>
       </form>
 
@@ -621,7 +618,7 @@ def chrome(body, current):
       <div>
         <h4>Contacto</h4>
         <p>Teléfono, WhatsApp y redes sociales: por confirmar.</p>
-        <p><a class="more" href="@@contacto">Ver contacto <span aria-hidden="true">→</span></a></p>
+        <p><a class="more" href="@@contacto">Ver contacto</a></p>
       </div>
       <div>
         <h4>Explora</h4>

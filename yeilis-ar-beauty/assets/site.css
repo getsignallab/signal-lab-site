@@ -628,3 +628,35 @@ a.cat:hover{box-shadow:0 26px 50px -30px rgba(64,50,54,.5)}
   .rizos-mini .arch,.rizos-top .arch{justify-self:start}
   .about-mini .portrait{justify-self:start}
 }
+
+/* ===== Limpieza visual: menos adornos, más tipografía y espacio ===== */
+/* etiquetas sobre títulos: sin línea y con menos espaciado */
+.eyebrow{letter-spacing:.2em;gap:0}
+.eyebrow::before,.prog-head .eyebrow::after{display:none}
+/* enlaces de texto: sin flecha ni mayúsculas, con subrayado fino */
+.more{font:500 16px/1.3 var(--sans);letter-spacing:0;text-transform:none;gap:0;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;text-decoration-color:var(--line-rose);transition:text-decoration-color .3s,color .3s}
+.more:hover,a.cat:hover .more{text-decoration-color:currentColor}
+.btn{letter-spacing:.14em;gap:0}
+.crumb{font:400 15px/1 var(--sans);letter-spacing:0;text-transform:none}
+.concept{font:500 13px/1.4 var(--sans);letter-spacing:.01em;text-transform:none}
+.mini-line{color:var(--mute);font-size:16.5px}
+/* separación por espacio y fondo, no por líneas */
+.phero,.fin,.programa,.creds{border:0}
+.creds ul li{border:0;padding-left:0}
+.creds span{font-size:15.5px;letter-spacing:0;text-transform:none}
+.expert,.svc,.facts{border-top:0}
+.expert li,.svc li,.facts li{border-bottom-color:rgba(64,50,54,.09)}
+.expert li:last-child,.facts li:last-child,.facts li:nth-last-child(2){border-bottom:0}
+.sec-head+.expert,.svc-block .expert{margin-top:18px}
+/* etiquetas pequeñas: sin mayúsculas donde no hacen falta */
+.tag{letter-spacing:.1em}
+.field label,.rsv-group legend,.step-l{font:500 15.5px/1.3 var(--sans);letter-spacing:0;text-transform:none;color:var(--white)}
+.opt span small{font:400 13.5px/1 var(--sans);letter-spacing:0;text-transform:none}
+.prod small{font:400 14.5px/1 var(--sans);letter-spacing:0;text-transform:none}
+.ba-note small{font:400 14px/1.3 var(--sans);letter-spacing:0;text-transform:none}
+.rsv-steps button{letter-spacing:.08em}
+.chip{letter-spacing:.08em}
+.add{letter-spacing:.1em}
+@media (max-width:860px){
+  .facts li:nth-last-child(2){border-bottom:1px solid rgba(64,50,54,.09)}
+}
