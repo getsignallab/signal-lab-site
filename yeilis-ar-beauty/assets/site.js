@@ -14,7 +14,12 @@
 
   /* Menú móvil y submenú «Más» */
   const burger = $('#burger'), nav = $('#nav'), more = $('.nav-more');
-  const setNav = open => { nav.classList.toggle('open', open); burger.setAttribute('aria-expanded', String(open)); burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú'); document.body.style.overflow = open ? 'hidden' : ''; };
+  const behind = $$('main, footer, .concept, .skip');
+  const setNav = open => {
+    nav.classList.toggle('open', open); burger.setAttribute('aria-expanded', String(open)); burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    document.body.style.overflow = open ? 'hidden' : ''; behind.forEach(e => { e.inert = open; });
+  };
+  matchMedia('(min-width: 1201px)').addEventListener('change', e => { if (e.matches) setNav(false); });
   burger.addEventListener('click', () => setNav(!nav.classList.contains('open')));
   nav.addEventListener('click', e => { if (e.target.closest('a')) setNav(false); });
   const setMore = open => { if (!more) return; more.classList.toggle('open', open); $('button', more).setAttribute('aria-expanded', String(open)); };
@@ -154,10 +159,11 @@
     };
     form.addEventListener('change', sync); sync();
 
-    let step = 1, reached = 1;
+    let step = 1, reached = 1, changedAt = 0;
+    const tooSoon = () => Date.now() - changedAt < 400;
     const panels = $$('.rsv-panel', form), stepLis = $$('#steps li'), prev = $('#prev'), next = $('#next');
     const show = (to, focus = true) => {
-      step = to; reached = Math.max(reached, Math.min(to, 3));
+      step = to; reached = Math.max(reached, Math.min(to, 3)); changedAt = Date.now();
       panels.forEach(p => { p.hidden = +p.dataset.step !== step; });
       stepLis.forEach((li, i) => {
         const k = i + 1, b = $('button', li);
@@ -180,6 +186,7 @@
     ['nombre', 'tel', 'mail'].forEach(id => $('#f-' + id).addEventListener('input', () => { if ($('#f-' + id).getAttribute('aria-invalid') === 'true') setErr(id, ''); }));
     form.addEventListener('submit', e => {
       e.preventDefault();
+      if (tooSoon()) return;
       if (step < 3) return show(step + 1);
       if (step === 3) {
         if (!validate()) return;
@@ -189,7 +196,7 @@
       }
       location.href = $('.brand').getAttribute('href');
     });
-    prev.addEventListener('click', () => { if (step === 4) { reached = 1; show(1); } else show(step - 1); });
+    prev.addEventListener('click', () => { if (tooSoon()) return; if (step === 4) { reached = 1; show(1); } else show(step - 1); });
     $('#steps').addEventListener('click', e => { const b = e.target.closest('button'); if (b && !b.disabled) show(+b.dataset.go); });
     show(1, false);
   }

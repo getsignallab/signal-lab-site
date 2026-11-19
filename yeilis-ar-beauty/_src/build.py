@@ -391,8 +391,10 @@ TIENDA = phero('Tienda', 'Tienda en línea', 'El ritual sigue <em>en casa</em>',
                '\n    <span class="todo">Catálogo de muestra: los productos, fotos y precios reales están pendientes</span>') + '''
 <section class="band plain">
   <div class="wrap">
+    <h2 class="sr-only">Catálogo de muestra</h2>
     <div class="filters" id="filters" role="group" aria-label="Filtrar productos por categoría" style="margin-top:0"></div>
     <div class="prods" id="prods"></div>
+    <noscript><p class="todo">Activa JavaScript en tu navegador para ver el catálogo de muestra.</p></noscript>
     <div class="shop-note rv">
       <span class="tag plain">Productos de muestra</span>
       <span class="tag plain">Pago en línea: se conecta en la siguiente fase</span>
@@ -435,6 +437,7 @@ RESERVAR = phero('Reservar cita', 'Citas en línea', 'Reserva tu <em>cita</em>',
           <h2 id="t1" tabindex="-1">¿Qué servicio necesitas?</h2>
           <p>Si no estás segura, empieza por la consulta gratuita.</p>
           <div id="svc-groups" class="stack" style="gap:22px"></div>
+          <noscript><p class="todo">La reserva en línea necesita JavaScript activado en tu navegador.</p></noscript>
           <span class="todo">Pendiente: duración, precios y depósito de cada servicio</span>
         </section>
 
@@ -458,17 +461,17 @@ RESERVAR = phero('Reservar cita', 'Citas en línea', 'Reserva tu <em>cita</em>',
             <div class="field">
               <label for="f-nombre">Nombre y apellido</label>
               <input id="f-nombre" name="nombre" type="text" autocomplete="name" aria-describedby="e-nombre">
-              <span class="err" id="e-nombre" hidden></span>
+              <span class="err" id="e-nombre" role="alert" hidden></span>
             </div>
             <div class="field">
               <label for="f-tel">Teléfono o WhatsApp</label>
               <input id="f-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="e-tel">
-              <span class="err" id="e-tel" hidden></span>
+              <span class="err" id="e-tel" role="alert" hidden></span>
             </div>
             <div class="field">
               <label for="f-mail">Correo electrónico <small>(opcional)</small></label>
               <input id="f-mail" name="mail" type="email" autocomplete="email" aria-describedby="e-mail">
-              <span class="err" id="e-mail" hidden></span>
+              <span class="err" id="e-mail" role="alert" hidden></span>
             </div>
             <div class="field">
               <label for="f-pelo">Tu tipo de cabello</label>
@@ -573,8 +576,9 @@ def chrome(body, current):
     sub = '\n'.join(f'          <a href="@@{p}"{cur(p)}>{t}</a>' for p, t in NAV_MORE)
     has = ' has-current' if current in dict(NAV_MORE) else ''
     foot_nav = '\n'.join(f'          <li><a href="@@{p}">{t}</a></li>' for p, t in NAV_MAIN[1:] + NAV_MORE)
-    inner = body if body.lstrip().startswith('<main') else f'<main>\n{body}\n</main>'
-    return f'''<div class="concept"><div class="wrap">Propuesta de diseño · <span class="xs-hide">Demostración para Yeilis AR Beauty · </span>Aún no es el sitio oficial · <a href="@@pendientes">Qué falta</a></div></div>
+    inner = f'<main id="contenido" tabindex="-1">\n{body}\n</main>'
+    return f'''<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="concept"><div class="wrap">Propuesta de diseño · <span class="xs-hide">Demostración para Yeilis AR Beauty · </span>Aún no es el sitio oficial · <a href="@@pendientes">Qué falta</a></div></div>
 
 <header class="head">
   <div class="wrap">
@@ -608,20 +612,20 @@ def chrome(body, current):
         <p>La Reina de los Rizos de Miami.<br>Tu cabello, tu corona.</p>
       </div>
       <div>
-        <h4>Visítanos</h4>
+        <h2>Visítanos</h2>
         <p>Yeilis AR Beauty<br>Phenix Salon Suites, Suite&nbsp;137<br>Hialeah, Florida</p>
       </div>
       <div>
-        <h4>Citas</h4>
+        <h2>Citas</h2>
         <p>Lunes a domingo<br>11:30&nbsp;a.&nbsp;m. – 11:30&nbsp;p.&nbsp;m.<br>Solo con cita previa</p>
       </div>
       <div>
-        <h4>Contacto</h4>
+        <h2>Contacto</h2>
         <p>Teléfono, WhatsApp y redes sociales: por confirmar.</p>
         <p><a class="more" href="@@contacto">Ver contacto</a></p>
       </div>
       <div>
-        <h4>Explora</h4>
+        <h2>Explora</h2>
         <ul>
 {foot_nav}
           <li><a href="@@reservar">Reservar cita</a></li>
@@ -675,7 +679,8 @@ def render(slug, title, desc, body, current):
     if PREVIEW and slug == 'home':   # la página principal de la vista previa va sin envoltorio de documento
         doc = head + '\n' + content
     else:
-        doc = f'<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n{head}\n</head>\n<body>\n{content}</body>\n</html>\n'
+        slash = '' if (PREVIEW or slug == 'home') else "<script>if(!/(\\/|\\.html?)$/.test(location.pathname))location.replace(location.pathname+'/'+location.search+location.hash)</script>\n"
+        doc = f'<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n{slash}{head}\n</head>\n<body>\n{content}</body>\n</html>\n'
     return resolve(doc, slug)
 
 

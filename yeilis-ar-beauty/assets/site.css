@@ -295,7 +295,7 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-heigh
 .pend-grid span{font-size:15.5px;color:var(--mute);line-height:1.5}
 .foot{background:#403236;padding-block:56px 30px}
 .foot-grid{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:36px}
-.foot h4{font:500 12.5px/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--rose);margin-bottom:16px}
+.foot h2{font:500 12.5px/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--rose);margin-bottom:16px}
 .foot p,.foot li{font-size:15.5px;color:var(--mute);line-height:1.7}
 .foot li a:hover{color:var(--rose)}
 .foot-brand img{width:96px;mix-blend-mode:screen;margin-left:-10px}
@@ -595,7 +595,7 @@ a.cat:hover{box-shadow:0 26px 50px -30px rgba(64,50,54,.5)}
 .creds span{font-size:13px}
 .todo{font-size:13.5px}
 .foot p,.foot li{font-size:16px}
-.foot h4{font-size:13px}
+.foot h2{font-size:13px}
 .legal{font-size:14.5px}
 .field label,.rsv-group legend,.step-l{font-size:13px}
 .opt span small{font-size:12px}
@@ -745,4 +745,35 @@ html{-webkit-tap-highlight-color:rgba(169,117,126,.15)}
   .times{grid-template-columns:repeat(2,minmax(0,1fr))}
   .rsv-steps button{font-size:12.5px}
   .prods{grid-template-columns:minmax(0,1fr)}
+}
+
+/* ===== Accesibilidad ===== */
+.skip{position:absolute;left:16px;top:-80px;z-index:100;background:var(--white);color:var(--ink);padding:13px 20px;border-radius:999px;font-weight:500;transition:top .2s}
+.skip:focus{top:10px}
+main:focus{outline:none}
+/* al enfocar un campo, que no quede bajo la cabecera fija ni bajo la barra «Continuar» */
+.field input,.field select,.field textarea{scroll-margin-block:calc(var(--head-h) + 16px) 96px}
+
+/* texto mínimo de 12 px en cualquier ancho */
+.brand small{font-size:12px;letter-spacing:.2em}
+.btn,.btn-sm,.add,.demo-pill,.soon{font-size:12px}
+.ba-side span,.hero-frame figcaption span{font-size:12px}
+/* tabletas: enlaces del pie con área táctil cómoda */
+@media (max-width:1200px){
+  .foot li a{min-height:44px;display:flex;align-items:center}
+  .foot .more{min-height:44px}
+}
+@media (max-width:560px){
+  .btn{font-size:13px}
+  .head .btn,.tag,.soon,.demo-pill,.add,.chip,.ba-side span{font-size:12.5px}
+}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+/* reserva en móvil: la barra de acciones ocupa una sola fila y deja de ser fija cuando el teclado deja poca altura */
+@media (max-width:560px){
+  .rsv-actions{flex-wrap:nowrap;gap:10px}
+  .rsv-actions .btn{flex:1 1 0;min-width:0;padding:6px 12px;white-space:normal;text-align:center;line-height:1.25}
+  .rsv-actions .btn-rose{flex:2 1 0}
+}
+@media (max-height:440px){
+  .rsv-actions{position:static;box-shadow:none}
 }

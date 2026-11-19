@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>if(!/(\/|\.html?)$/.test(location.pathname))location.replace(location.pathname+'/'+location.search+location.hash)</script>
 <title>Tienda · Yeilis AR Beauty</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="robots" content="noindex">
@@ -14,6 +15,7 @@
 <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
 <div class="concept"><div class="wrap">Propuesta de diseño · <span class="xs-hide">Demostración para Yeilis AR Beauty · </span>Aún no es el sitio oficial · <a href="../pendientes/">Qué falta</a></div></div>
 
 <header class="head">
@@ -44,7 +46,7 @@
   </div>
 </header>
 
-<main>
+<main id="contenido" tabindex="-1">
 <section class="phero">
   <div class="wrap">
     <p class="crumb"><a href="../">Inicio</a><span aria-hidden="true">/</span><span>Tienda</span></p>
@@ -55,8 +57,10 @@
 </section>
 <section class="band plain">
   <div class="wrap">
+    <h2 class="sr-only">Catálogo de muestra</h2>
     <div class="filters" id="filters" role="group" aria-label="Filtrar productos por categoría" style="margin-top:0"></div>
     <div class="prods" id="prods"></div>
+    <noscript><p class="todo">Activa JavaScript en tu navegador para ver el catálogo de muestra.</p></noscript>
     <div class="shop-note rv">
       <span class="tag plain">Productos de muestra</span>
       <span class="tag plain">Pago en línea: se conecta en la siguiente fase</span>
@@ -74,20 +78,20 @@
         <p>La Reina de los Rizos de Miami.<br>Tu cabello, tu corona.</p>
       </div>
       <div>
-        <h4>Visítanos</h4>
+        <h2>Visítanos</h2>
         <p>Yeilis AR Beauty<br>Phenix Salon Suites, Suite&nbsp;137<br>Hialeah, Florida</p>
       </div>
       <div>
-        <h4>Citas</h4>
+        <h2>Citas</h2>
         <p>Lunes a domingo<br>11:30&nbsp;a.&nbsp;m. – 11:30&nbsp;p.&nbsp;m.<br>Solo con cita previa</p>
       </div>
       <div>
-        <h4>Contacto</h4>
+        <h2>Contacto</h2>
         <p>Teléfono, WhatsApp y redes sociales: por confirmar.</p>
         <p><a class="more" href="../contacto/">Ver contacto</a></p>
       </div>
       <div>
-        <h4>Explora</h4>
+        <h2>Explora</h2>
         <ul>
           <li><a href="../servicios/">Servicios</a></li>
           <li><a href="../universo-rizado/">Universo Rizado</a></li>
