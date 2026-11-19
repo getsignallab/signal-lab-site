@@ -33,7 +33,8 @@ body{margin:0;background:var(--ink);color:var(--white);font:400 16px/1.6 var(--s
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit;text-decoration:none}
-button,input,select{font:inherit;color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+[hidden]{display:none!important}
 button{cursor:pointer;background:none;border:0;padding:0}
 h1,h2,h3,h4,p,ul,ol,figure{margin:0}
 ul,ol{padding:0;list-style:none}
@@ -78,6 +79,13 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-heigh
 .nav a{position:relative;white-space:nowrap;padding-block:10px;color:var(--mute);transition:color .3s}
 .nav a::after{content:"";position:absolute;left:0;right:100%;bottom:2px;height:1px;background:var(--rose);transition:right .4s cubic-bezier(.2,.7,.2,1)}
 .nav a:hover,.nav a.on{color:var(--white)}.nav a:hover::after,.nav a.on::after{right:0}
+.nav a.nav-cta{display:none}
+.cita-band{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(24px,5vw,70px);align-items:center}
+.cita-side{align-items:flex-start;border-left:1px solid var(--line-rose);padding-left:clamp(20px,3vw,40px)}
+.cita-hours{display:flex;flex-direction:column;gap:2px}
+.cita-hours b{font:400 24px/1.2 var(--display)}
+.cita-hours span{color:var(--mute)}
+.head-cta{box-shadow:0 0 0 1px rgba(255,255,255,.6) inset,0 0 26px -2px var(--rose-glow)}
 .burger{display:none;width:46px;height:46px;border:1px solid var(--line);border-radius:50%;position:relative}
 .burger i{position:absolute;left:13px;right:13px;height:1px;background:var(--white);transition:transform .35s,top .35s}
 .burger i:first-child{top:19px}.burger i:last-child{top:26px}
@@ -316,6 +324,8 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-heigh
 @media (max-width:1180px){
   .nav{position:fixed;inset:0;z-index:55;background:rgba(7,5,6,.97);flex-direction:column;justify-content:center;align-items:center;gap:8px;font:400 30px/1.2 var(--display);letter-spacing:0;text-transform:none;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;padding:80px 24px}
   .nav a{color:var(--white);padding:10px 16px;min-height:48px}
+  .nav a.nav-cta{display:inline-flex;margin:22px 0 0;min-height:54px;padding:0 34px;font:500 13px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
+  .nav a.nav-cta::after{display:none}
   .nav{overflow-y:auto}
   .nav.open{opacity:1;visibility:visible}
   .burger{display:block;z-index:56}
@@ -326,7 +336,8 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-heigh
   .foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:860px){
-  .hero .wrap,.rizos-top,.liso-grid,.res-grid,.aca-grid,.sobre-grid{grid-template-columns:minmax(0,1fr)}
+  .hero .wrap,.rizos-top,.liso-grid,.res-grid,.aca-grid,.sobre-grid,.cita-band{grid-template-columns:minmax(0,1fr)}
+  .cita-side{border-left:0;padding-left:0}
   .hero-art{order:-1;justify-self:center;max-width:270px;margin-top:6px}
   .hero-coil{display:none}
   .hero-copy{align-items:center;text-align:center;margin-top:8px}
@@ -357,8 +368,8 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-heigh
   .expert li:hover{padding-inline:0}
   .legal{flex-direction:column}
   :root{--head-h:66px}
-  .brand small,.xs-hide{display:none}.brand b{font-size:13px;letter-spacing:.12em;white-space:nowrap}.brand img{width:44px;height:40px}
-  .head .btn{padding:0 16px;min-height:44px;font-size:11px;letter-spacing:.14em}
+  .brand small,.xs-hide{display:none}.brand{gap:8px;min-width:0}.brand b{font-size:12px;letter-spacing:.08em;white-space:nowrap}.brand img{width:38px;height:35px}
+  .head .btn{padding:0 13px;min-height:44px;font-size:11px;letter-spacing:.12em}
   .head .wrap{gap:8px}.burger{flex-shrink:0;width:44px;height:44px}.burger i{left:12px;right:12px}.burger i:first-child{top:18px}.burger i:last-child{top:25px}.burger[aria-expanded="true"] i:first-child,.burger[aria-expanded="true"] i:last-child{top:21px}
   .cta-row .btn{width:100%}
   .svc,.facts{grid-template-columns:minmax(0,1fr)}
@@ -397,8 +408,9 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-heigh
       <a href="#tienda">Tienda</a>
       <a href="#academia">Academia</a>
       <a href="#yeilis">Sobre Yeilis</a>
+      <a class="btn btn-rose nav-cta" href="reservar/">Reservar cita</a>
     </nav>
-    <a class="btn btn-rose btn-sm" href="#reserva"><span>Reserva<span class="xs-hide"> tu cita</span></span></a>
+    <a class="btn btn-rose btn-sm head-cta" href="reservar/"><span>Reservar<span class="xs-hide"> cita</span></span></a>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
   </div>
 </header>
@@ -416,7 +428,7 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-heigh
         Tu cabello, tu corona.
       </p>
       <div class="cta-row">
-        <a class="btn btn-rose" href="#reserva">Reserva tu cita <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-rose" href="reservar/">Reserva tu cita <span class="arr" aria-hidden="true">→</span></a>
         <a class="btn btn-line" href="#universo-rizado">Descubre mis servicios</a>
       </div>
       <p class="hero-meta"><span><b>Phenix Salon Suites</b> · Suite 137 · Hialeah, Florida</span><span>Solo con cita previa</span></p>
@@ -450,7 +462,7 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-heigh
         <p class="eyebrow">La especialidad de la casa</p>
         <h2 class="rizos-title"><span>Universo</span><em>Rizado</em></h2>
         <p class="lead">Aquí el rizo manda. Yeilis lleva más de veinte años estudiando cómo se comporta cada textura: cómo se corta, cómo se hidrata, cómo se define y cómo recupera su forma. Cada servicio empieza por entender tu cabello.</p>
-        <div class="cta-row"><a class="btn btn-rose" href="#reserva">Agenda tu consulta gratuita <span class="arr" aria-hidden="true">→</span></a></div>
+        <div class="cta-row"><a class="btn btn-rose" href="reservar/">Agenda tu consulta gratuita <span class="arr" aria-hidden="true">→</span></a></div>
       </div>
       <figure class="arch rv">
         <img src="assets/ambiente-rizos.webp" width="1100" height="825" loading="lazy" decoding="async" alt="Imagen de ambiente: melena de rizos definidos">
@@ -525,7 +537,7 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-heigh
       <li class="rv"><h3>Acompañamiento</h3><p>Citas de seguimiento para ajustar el plan según cómo responde tu cabello.</p></li>
     </ol>
     <div class="prog-foot rv">
-      <a class="btn btn-rose" href="#reserva">Reserva tu consulta <span class="arr" aria-hidden="true">→</span></a>
+      <a class="btn btn-rose" href="reservar/">Reserva tu consulta <span class="arr" aria-hidden="true">→</span></a>
       <small>Cada cabello es distinto y cada recorrido también. El plan y sus tiempos se definen en la consulta.</small>
       <span class="todo">Pendiente: Yeilis valida las etapas y el texto de su método</span>
     </div>
@@ -560,53 +572,19 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-heigh
   </div>
 </section>
 
-<!-- ============ RESERVA ============ -->
-<section class="band reserva" id="reserva">
-  <div class="wrap res-grid">
-    <div class="stack rv">
-      <p class="eyebrow">Citas en línea</p>
-      <h2 class="h2">Reserva tu <em>cita</em></h2>
+<!-- ============ CITAS (la reserva vive en /reservar) ============ -->
+<section class="band reserva" id="citas" style="padding-block:clamp(40px,5vw,68px)">
+  <div class="wrap cita-band rv">
+    <div class="stack">
+      <p class="eyebrow">Citas</p>
+      <h2 class="h2">Tu cita, a tu <em>ritmo</em></h2>
       <p class="lead">Yeilis atiende únicamente con cita previa. La consulta es gratuita, pero también se agenda.</p>
-      <p class="lead" style="font-size:16px"><b style="color:var(--white);font-weight:500">Horario de citas:</b> lunes a domingo, de 11:30 a.&nbsp;m. a 11:30 p.&nbsp;m., según disponibilidad en su agenda.</p>
-      <h3 style="font-size:19px;margin-top:6px">Lo que hará Square Appointments en el sitio final</h3>
-      <ul class="res-list">
-        <li>Elegir el servicio y ver los horarios realmente disponibles.</li>
-        <li>Reservar consultas y tratamientos en pocos pasos.</li>
-        <li>Pagar el depósito de la cita.</li>
-        <li>Recibir confirmación y recordatorios automáticos.</li>
-        <li>Un solo calendario para que Yeilis gestione todas sus citas.</li>
-      </ul>
-      <span class="todo">Pendiente: configurar y probar la cuenta de Square de Yeilis</span>
     </div>
-
-    <form class="booker rv" id="booker" novalidate>
-      <div class="booker-top"><b>Vista previa de reserva</b><span class="demo-pill">Demostración</span></div>
-      <div class="booker-body">
-        <fieldset style="border:0;padding:0;margin:0;min-width:0">
-          <legend class="step-l" style="width:100%;padding:0"><span>1 · Servicio</span></legend>
-          <div class="opts" id="svc-opts"></div>
-        </fieldset>
-        <fieldset style="border:0;padding:0;margin:0;min-width:0">
-          <legend class="step-l" style="width:100%;padding:0"><span>2 · Fecha</span></legend>
-          <div class="days" id="day-opts"></div>
-        </fieldset>
-        <fieldset style="border:0;padding:0;margin:0;min-width:0">
-          <legend class="step-l" style="width:100%;padding:0"><span>3 · Hora</span><i>Horarios de ejemplo</i></legend>
-          <div class="times" id="time-opts"></div>
-        </fieldset>
-      </div>
-      <div class="sum">
-        <dl>
-          <dt>Servicio</dt><dd id="s-svc">—</dd>
-          <dt>Fecha</dt><dd id="s-day">—</dd>
-          <dt>Hora</dt><dd id="s-time">—</dd>
-          <dt>Depósito</dt><dd id="s-dep">—</dd>
-          <dt>Lugar</dt><dd>Phenix Salon Suites, Suite 137</dd>
-        </dl>
-        <button class="btn btn-rose" type="submit">Ver el siguiente paso</button>
-        <p class="demo-msg" id="demo-msg" role="status">Esto es una demostración. No se reserva ninguna cita ni se cobra ningún pago.</p>
-      </div>
-    </form>
+    <div class="stack cita-side">
+      <p class="cita-hours"><b>Lunes a domingo</b><span>11:30 a.&nbsp;m. – 11:30 p.&nbsp;m., según disponibilidad</span></p>
+      <a class="btn btn-rose" href="reservar/">Reservar cita <span class="arr" aria-hidden="true">→</span></a>
+      <span class="todo">La reserva en línea es una demostración</span>
+    </div>
   </div>
 </section>
 
@@ -724,7 +702,7 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-heigh
           <li><a href="#universo-rizado">Universo Rizado</a></li>
           <li><a href="#programa">Recuperación del Rizo</a></li>
           <li><a href="#cabello-liso">Cabello Liso</a></li>
-          <li><a href="#reserva">Reserva tu cita</a></li>
+          <li><a href="reservar/">Reserva tu cita</a></li>
         </ul>
       </div>
     </div>
@@ -762,6 +740,9 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-heigh
       <path d="${back}" stroke="#8a4a63" stroke-width="3"/><path d="${front}" stroke="url(#cg${k})" stroke-width="4"/>`;
   });
 
+  /* Al abrir los archivos directamente desde el disco, las carpetas necesitan index.html */
+  if (location.protocol === 'file:') $$('a[href]').forEach(a => { const m = a.getAttribute('href').match(/^(\.{1,2}\/|[\w-]+\/)(#.*)?$/); if (m) a.setAttribute('href', m[1] + 'index.html' + (m[2] || '')); });
+
   /* Menú móvil */
   const burger = $('#burger'), nav = $('#nav');
   const setNav = open => { nav.classList.toggle('open', open); burger.setAttribute('aria-expanded', String(open)); burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú'); document.body.style.overflow = open ? 'hidden' : ''; };
@@ -776,39 +757,6 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-heigh
 
   /* Antes / después */
   $$('.ba-frame').forEach(f => { const i = $('input', f); const upd = () => f.style.setProperty('--pos', i.value + '%'); i.addEventListener('input', upd); upd(); });
-
-  /* Reserva (demostración) */
-  const services = [
-    ['Consulta inicial', 'Gratis'], ['Recuperación del rizo', 'Rizos'], ['Corte para rizos', 'Rizos'], ['Definición del rizo', 'Rizos'],
-    ['Color, balayage o mechas', 'Ambos'], ['Keratina brasileña', 'Liso'], ['Botox capilar', 'Liso'], ['Extensiones o trenzas', 'Ambos']
-  ];
-  const times = ['11:30 a. m.', '1:00 p. m.', '2:30 p. m.', '4:00 p. m.', '5:30 p. m.', '7:00 p. m.', '8:30 p. m.', '10:00 p. m.'];
-  const radio = (name, id, value, checked, build) => {
-    const l = el('label', 'opt'); const i = el('input'); i.type = 'radio'; i.name = name; i.id = id; i.value = value; i.checked = checked;
-    const s = el('span'); build(s); l.append(i, s); return l;
-  };
-  const svcBox = $('#svc-opts'), dayBox = $('#day-opts'), timeBox = $('#time-opts');
-  services.forEach(([n, t], i) => svcBox.append(radio('svc', 'svc-' + i, n, i === 0, s => { s.append(n, el('small', '', t)); })));
-  const fmtDow = new Intl.DateTimeFormat('es', { weekday: 'short' }), fmtMon = new Intl.DateTimeFormat('es', { month: 'short' }),
-        fmtFull = new Intl.DateTimeFormat('es', { weekday: 'long', day: 'numeric', month: 'long' });
-  for (let d = 1; d <= 14; d++) {
-    const dt = new Date(); dt.setDate(dt.getDate() + d);
-    dayBox.append(radio('day', 'day-' + d, fmtFull.format(dt), d === 2, s => { s.append(el('small', '', fmtDow.format(dt).replace('.', '')), el('b', '', dt.getDate()), el('small', '', fmtMon.format(dt).replace('.', ''))); }));
-  }
-  times.forEach((t, i) => timeBox.append(radio('time', 'time-' + i, t, i === 3, s => { s.textContent = t; })));
-  const booker = $('#booker'), msg = $('#demo-msg');
-  const baseMsg = msg.textContent;
-  const sync = () => {
-    const v = n => (booker.elements[n].value || '—');
-    $('#s-svc').textContent = v('svc'); $('#s-day').textContent = v('day'); $('#s-time').textContent = v('time');
-    $('#s-dep').textContent = v('svc') === 'Consulta inicial' ? 'Sin costo' : 'Monto por definir';
-    msg.textContent = baseMsg;
-  };
-  booker.addEventListener('change', sync); sync();
-  booker.addEventListener('submit', e => {
-    e.preventDefault();
-    msg.textContent = 'Aquí termina la demostración. En el sitio final, este paso abrirá Square Appointments para confirmar la disponibilidad real, cobrar el depósito y enviar la confirmación. No se ha reservado ninguna cita.';
-  });
 
   /* Tienda (productos de muestra) */
   const cats = ['Todo', 'Limpieza', 'Hidratación', 'Definición', 'Tratamiento'];
