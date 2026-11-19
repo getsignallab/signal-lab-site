@@ -110,7 +110,7 @@ HOME = f'''<!-- 1 · HERO -->
         {reservar_btn()}
         <a class="btn btn-line" href="@@servicios">Ver servicios</a>
       </div>
-      <p class="hero-meta"><span><b>Phenix Salon Suites</b> · Suite 137 · Hialeah, Florida</span><span>Solo con cita previa</span></p>
+      <p class="hero-meta"><span><b>Phenix Salon Suites</b> · Suite 137 · Hialeah, Florida</span><span>Solo con cita previa · Lunes a domingo, 11:30 a.&nbsp;m. – 11:30 p.&nbsp;m.</span></p>
     </div>
     <div class="hero-art">
       <!-- RETRATO: reemplazar assets/yeilis-hero.webp por el retrato original en alta resolución (vertical 4:5, mínimo 1200 × 1500 px, sin logos ni texto encima). -->
@@ -158,13 +158,13 @@ HOME = f'''<!-- 1 · HERO -->
 </section>
 
 <!-- 4 · UNIVERSO RIZADO -->
-<section class="band rizos" id="universo-rizado">
+<section class="band alt" id="universo-rizado">
   <div class="wrap rizos-mini">
     <div class="stack rv">
       <p class="eyebrow">La especialidad de la casa</p>
       <h2 class="rizos-title"><span>Universo</span><em>Rizado</em></h2>
       <p class="lead">Aquí el rizo manda. Yeilis lleva más de veinte años estudiando cómo se comporta cada textura, y creó el Programa de Recuperación del Rizo para acompañarte paso a paso.</p>
-      <div class="cta-row"><a class="btn btn-line" href="@@universo-rizado">Explorar Universo Rizado</a></div>
+      <div class="cta-row">{reservar_btn("Reservar consulta gratuita", "#svc-consulta")}<a class="btn btn-line" href="@@universo-rizado">Explorar Universo Rizado</a></div>
     </div>
     <figure class="arch rv">
       <img src="@@/assets/ambiente-rizos.webp" width="1100" height="825" loading="lazy" decoding="async" alt="Imagen de ambiente: melena de rizos definidos">
@@ -195,7 +195,7 @@ HOME = f'''<!-- 1 · HERO -->
 <!-- 6 · TESTIMONIOS: sección reservada. Se añade aquí cuando Yeilis entregue 2 o 3 reseñas reales de clientas; no se muestran reseñas inventadas. -->
 
 <!-- 7 · ACADEMIA Y TIENDA -->
-<section class="band tienda" id="mas">
+<section class="band alt" id="mas">
   <div class="wrap duo">
     <a class="cat rv" href="@@academia"><span class="soon">Próximamente</span><h3>Academia de la Reina de los Rizos</h3><p>Cursos, programas y consultas virtuales para aprender a cuidar tus rizos con la metodología de Yeilis, desde cualquier lugar.</p><span class="more">Conocer la academia <span aria-hidden="true">→</span></span></a>
     <a class="cat rv" href="@@tienda"><span class="tag plain">Catálogo de muestra</span><h3>Tienda</h3><p>Los productos que Yeilis recomienda para continuar el ritual en casa. El catálogo real se publica cuando esté listo.</p><span class="more">Ver la tienda <span aria-hidden="true">→</span></span></a>
@@ -217,7 +217,7 @@ SOBRE = phero('Sobre Yeilis', 'Sobre Yeilis', 'Yeilis Armas, <em>la Reina de los
     </ul>
   </div>
 </section>
-<section class="band sobre">
+<section class="band plain">
   <div class="wrap sobre-grid">
     <figure class="portrait rv">
       <img src="@@/assets/yeilis-retrato.webp" width="500" height="500" decoding="async" alt="Retrato de Yeilis Armas con sombrero negro y lentes">
@@ -254,7 +254,7 @@ SOBRE = phero('Sobre Yeilis', 'Sobre Yeilis', 'Yeilis Armas, <em>la Reina de los
 # ---------------------------------------------------------------- SERVICIOS
 SERVICIOS = phero('Servicios', 'Servicios', 'Todos los <em>servicios</em>', 'Cada cita empieza por entender tu cabello. Si no sabes cuál elegir, reserva la consulta gratuita y Yeilis te orienta.',
                   f'\n    <div class="cta-row">{reservar_btn("Reservar consulta gratuita", "#svc-consulta")}</div>\n    <span class="todo">Pendiente: precios y duración de cada servicio, confirmados por Yeilis</span>') + f'''
-<section class="band rizos">
+<section class="band plain">
   <div class="wrap">
     <div class="svc-block" id="rizos">
       <div class="sec-head rv">
@@ -286,17 +286,17 @@ SERVICIOS = phero('Servicios', 'Servicios', 'Todos los <em>servicios</em>', 'Cad
 '''
 
 # ---------------------------------------------------------------- UNIVERSO RIZADO
-UNIVERSO = f'''<section class="band rizos" style="padding-top:clamp(22px,3vw,40px)">
+UNIVERSO = phero('Universo Rizado', 'La especialidad de la casa', 'Universo <em>Rizado</em>', 'Aquí el rizo manda. Yeilis lleva más de veinte años estudiando cómo se comporta cada textura: cómo se corta, cómo se hidrata, cómo se define y cómo recupera su forma.',
+                 f'\n    <div class="cta-row">{reservar_btn("Agenda tu consulta gratuita", "#svc-consulta")}</div>') + f'''
+<section class="band plain">
   <div class="wrap">
-    <p class="crumb"><a href="@@home">Inicio</a><span aria-hidden="true">/</span><span>Universo Rizado</span></p>
-    <div class="rizos-top" style="margin-top:10px">
-      <div class="stack">
-        <p class="eyebrow">La especialidad de la casa</p>
-        <h1 class="rizos-title"><span>Universo</span><em>Rizado</em></h1>
-        <p class="lead">Aquí el rizo manda. Yeilis lleva más de veinte años estudiando cómo se comporta cada textura: cómo se corta, cómo se hidrata, cómo se define y cómo recupera su forma. Cada servicio empieza por entender tu cabello.</p>
-        <div class="cta-row">{reservar_btn("Agenda tu consulta gratuita", "#svc-consulta")}</div>
+    <div class="rizos-top">
+      <div class="stack rv">
+        <p class="eyebrow">Servicios para rizos</p>
+        <h2 class="h2">Cada servicio empieza por entender tu <em>cabello</em></h2>
+        <p class="lead">Recuperación, corte, definición, color y tratamientos, pensados para la forma y el comportamiento natural de tu rizo.</p>
       </div>
-      <figure class="arch">
+      <figure class="arch rv">
         <img src="@@/assets/ambiente-rizos.webp" width="1100" height="825" decoding="async" alt="Imagen de ambiente: melena de rizos definidos">
         <figcaption class="cap">Imagen de ambiente. Se reemplaza por fotos reales del trabajo de Yeilis.</figcaption>
       </figure>
@@ -392,7 +392,7 @@ ACADEMIA = phero('Academia', 'Academia', 'Academia de la Reina de los <em>Rizos<
 # ---------------------------------------------------------------- TIENDA
 TIENDA = phero('Tienda', 'Tienda en línea', 'El ritual sigue <em>en casa</em>', 'Los productos que Yeilis recomienda, organizados por lo que tu cabello necesita. Así se verá el catálogo cuando ella lo entregue.',
                '\n    <span class="todo">Catálogo de muestra: los productos, fotos y precios reales están pendientes</span>') + '''
-<section class="band tienda">
+<section class="band plain">
   <div class="wrap">
     <div class="filters" id="filters" role="group" aria-label="Filtrar productos por categoría" style="margin-top:0"></div>
     <div class="prods" id="prods"></div>
@@ -422,16 +422,10 @@ CONTACTO = phero('Contacto', 'Contacto', 'Visítanos en <em>Hialeah</em>', 'Yeil
 '''
 
 # ---------------------------------------------------------------- RESERVAR
-RESERVAR = f'''<main class="rsv">
+RESERVAR = phero('Reservar cita', 'Citas en línea', 'Reserva tu <em>cita</em>', 'Yeilis atiende únicamente con cita previa, de lunes a domingo, de 11:30 a.&nbsp;m. a 11:30 p.&nbsp;m., según la disponibilidad de su agenda. La consulta es gratuita, pero también se agenda.',
+                 '\n    <p class="rsv-notice"><span class="demo-pill">Demostración</span><span>Esta página muestra cómo será la reserva. Todavía no está conectada a un sistema de citas: no se reserva nada, no se cobra nada y tus datos no se envían.</span></p>') + f'''
+<section class="rsv">
   <div class="wrap">
-    <div class="rsv-head">
-      <p class="crumb"><a href="@@home">Inicio</a><span aria-hidden="true">/</span><span>Reservar cita</span></p>
-      <p class="eyebrow">Citas en línea</p>
-      <h1>Reserva tu <em>cita</em></h1>
-      <p class="lead">Yeilis atiende únicamente con cita previa, de lunes a domingo, de 11:30 a.&nbsp;m. a 11:30 p.&nbsp;m., según la disponibilidad de su agenda. La consulta es gratuita, pero también se agenda.</p>
-      <p class="rsv-notice"><span class="demo-pill">Demostración</span><span>Esta página muestra cómo será la reserva. Todavía no está conectada a un sistema de citas: no se reserva nada, no se cobra nada y tus datos no se envían.</span></p>
-    </div>
-
     <div class="rsv-grid">
       <form class="booker" id="rsv" novalidate>
         <ol class="rsv-steps" id="steps" aria-label="Pasos de la reserva">
@@ -541,7 +535,7 @@ RESERVAR = f'''<main class="rsv">
       </aside>
     </div>
   </div>
-</main>'''
+</section>'''
 
 # ---------------------------------------------------------------- PENDIENTES (página de la propuesta, fuera del menú)
 PENDIENTES = phero('Pendientes', 'Para completar el sitio', 'Lo que necesitamos de ti, <em>Yeilis</em>', 'Esta propuesta usa tu logo y tu foto reales. Todo lo marcado en verde en el sitio es un espacio reservado que se llena con tu material.') + '''
@@ -618,11 +612,11 @@ def chrome(body, current):
       </div>
       <div>
         <h4>Visítanos</h4>
-        <p>Yeilis AR Beauty<br>Phenix Salon Suites, Suite 137<br>Hialeah, Florida</p>
+        <p>Yeilis AR Beauty<br>Phenix Salon Suites, Suite&nbsp;137<br>Hialeah, Florida</p>
       </div>
       <div>
         <h4>Citas</h4>
-        <p>Lunes a domingo<br>11:30 a.&nbsp;m. – 11:30 p.&nbsp;m.<br>Solo con cita previa</p>
+        <p>Lunes a domingo<br>11:30&nbsp;a.&nbsp;m. – 11:30&nbsp;p.&nbsp;m.<br>Solo con cita previa</p>
       </div>
       <div>
         <h4>Contacto</h4>
