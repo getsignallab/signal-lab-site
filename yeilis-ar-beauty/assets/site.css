@@ -777,3 +777,4 @@ main:focus{outline:none}
 @media (max-height:440px){
   .rsv-actions{position:static;box-shadow:none}
 }
+address{font-style:normal}

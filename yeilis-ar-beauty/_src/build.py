@@ -7,10 +7,23 @@ Uso:  python3 _src/build.py            -> escribe las páginas del sitio (enlace
 Cabecera, pie y navegación se definen una sola vez aquí. Los estilos y el script viven en assets/site.css y assets/site.js.
 En el texto, @@pagina se convierte en el enlace relativo correcto (@@home, @@servicios, @@reservar#svc-keratina, @@/assets/x.webp).
 """
-import os, re, sys
+import datetime, json, os, re, sys
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PREVIEW = sys.argv[2] if len(sys.argv) > 2 and sys.argv[1] == '--preview' else None
+ARGS = sys.argv[1:]
+PREVIEW = ARGS[1] if len(ARGS) > 1 and ARGS[0] == '--preview' else None
+BIZ = json.load(open(os.path.join(SITE, '_src', 'business.json'), encoding='utf-8'))
+
+# --- Indexación --------------------------------------------------------------------------------------------
+# Por defecto TODO se genera en modo previo al lanzamiento: noindex, sin canonical, sin sitemap, robots.txt cerrado.
+# El modo de lanzamiento exige las tres cosas a la vez: la opción --launch, "launch_authorized": true y "production_url"
+# en _src/business.json. Así ninguna construcción automática puede dejar el sitio indexable por accidente.
+# --launch-test DIR URL genera la variante de lanzamiento en otra carpeta, solo para validarla (no toca el sitio).
+TEST = ARGS[1:3] if len(ARGS) > 2 and ARGS[0] == '--launch-test' else None
+LIVE = bool(TEST) or ('--launch' in ARGS and BIZ.get('launch_authorized') is True and bool(BIZ.get('production_url')))
+if '--launch' in ARGS and not LIVE:
+    sys.exit('Lanzamiento NO realizado: falta "launch_authorized": true o "production_url" en _src/business.json.')
+BASE_URL = ((TEST[1] if TEST else BIZ.get('production_url')) or '').rstrip('/') + '/' if LIVE else None
 
 NAV_MAIN = [('home', 'Inicio'), ('servicios', 'Servicios'), ('universo-rizado', 'Universo Rizado'), ('galeria', 'Galería'), ('sobre-yeilis', 'Sobre Yeilis')]
 NAV_MORE = [('academia', 'Academia'), ('tienda', 'Tienda'), ('contacto', 'Contacto')]
@@ -292,6 +305,7 @@ UNIVERSO = phero('Universo Rizado', 'La especialidad de la casa', 'Universo <em>
         <p class="eyebrow">Servicios para rizos</p>
         <h2 class="h2">Cada servicio empieza por entender tu <em>cabello</em></h2>
         <p class="lead">Recuperación, corte, definición, color y tratamientos, pensados para la forma y el comportamiento natural de tu rizo.</p>
+        {more('servicios', 'Ver todos los servicios')}
       </div>
       <figure class="arch rv">
         <img src="@@/assets/ambiente-rizos.webp" width="1100" height="825" decoding="async" alt="Imagen de ambiente: melena de rizos definidos">
@@ -409,7 +423,7 @@ CONTACTO = phero('Contacto', 'Contacto', 'Visítanos en <em>Hialeah</em>', 'Yeil
 <section class="band">
   <div class="wrap">
     <div class="contact">
-      <div class="cat rv"><span class="tag">Dirección</span><p class="val">Yeilis AR Beauty<br>Phenix Salon Suites, Suite&nbsp;137<br>Hialeah, Florida</p><span class="todo">Pendiente: calle y número</span></div>
+      <div class="cat rv"><span class="tag">Dirección</span><address><p class="val">Yeilis AR Beauty<br>Phenix Salon Suites, Suite&nbsp;137<br>Hialeah, Florida</p></address><span class="todo">Pendiente: calle y número</span></div>
       <div class="cat rv"><span class="tag">Horario de citas</span><p class="val">Lunes a domingo<br>11:30 a.&nbsp;m. – 11:30 p.&nbsp;m.</p><p>Según la disponibilidad de su agenda. Solo con cita previa.</p></div>
       <div class="cat rv"><span class="tag both">Teléfono y WhatsApp</span><p class="val">Por confirmar</p><span class="todo">Pendiente: número de Yeilis</span></div>
       <div class="cat rv"><span class="tag both">Redes sociales</span><p class="val">Por confirmar</p><span class="todo">Pendiente: Instagram y otras redes</span></div>
@@ -556,18 +570,30 @@ PENDIENTES = phero('Pendientes', 'Para completar el sitio', 'Lo que necesitamos 
 </section>'''
 
 PAGES = [
-    # slug, <title>, descripción, cuerpo, elemento de menú activo
-    ('home', 'Yeilis AR Beauty', 'Yeilis AR Beauty, La Reina de los Rizos de Miami. Especialista en cabello rizado en Hialeah, Florida. Propuesta de diseño.', HOME, 'home'),
-    ('sobre-yeilis', 'Sobre Yeilis · Yeilis AR Beauty', 'La historia y la experiencia de Yeilis Armas, especialista en cabello rizado.', SOBRE, 'sobre-yeilis'),
-    ('servicios', 'Servicios · Yeilis AR Beauty', 'Todos los servicios de Yeilis AR Beauty para cabello rizado y liso.', SERVICIOS, 'servicios'),
-    ('universo-rizado', 'Universo Rizado · Yeilis AR Beauty', 'La especialidad de Yeilis: cabello rizado y el Programa de Recuperación del Rizo.', UNIVERSO, 'universo-rizado'),
-    ('galeria', 'Galería · Yeilis AR Beauty', 'Galería de antes y después de Yeilis AR Beauty.', GALERIA, 'galeria'),
-    ('academia', 'Academia · Yeilis AR Beauty', 'Academia de la Reina de los Rizos, próximamente.', ACADEMIA, 'academia'),
-    ('tienda', 'Tienda · Yeilis AR Beauty', 'Tienda de productos recomendados por Yeilis. Catálogo de muestra.', TIENDA, 'tienda'),
-    ('reservar', 'Reservar cita · Yeilis AR Beauty', 'Demostración de la reserva de citas en línea de Yeilis AR Beauty.', RESERVAR, 'reservar'),
-    ('contacto', 'Contacto · Yeilis AR Beauty', 'Dirección, horario y contacto de Yeilis AR Beauty en Hialeah, Florida.', CONTACTO, 'contacto'),
-    ('pendientes', 'Pendientes · Yeilis AR Beauty', 'Material pendiente para completar el sitio de Yeilis AR Beauty.', PENDIENTES, ''),
+    # carpeta, título SEO (≤ 60 caracteres), descripción (≤ 160), cuerpo, elemento de menú activo, nombre en la ruta de navegación
+    ('home', 'Yeilis AR Beauty | Especialista en cabello rizado en Hialeah',
+     'Yeilis Armas, La Reina de los Rizos de Miami: más de 20 años cuidando, cortando y recuperando el cabello rizado. Salón privado en Hialeah, solo con cita.', HOME, 'home', 'Inicio'),
+    ('sobre-yeilis', 'Sobre Yeilis Armas, especialista en rizos | Yeilis AR Beauty',
+     'Estilista con más de 20 años de experiencia, especialista en cabello rizado y embajadora internacional de Phyto Activo. Conoce a La Reina de los Rizos de Miami.', SOBRE, 'sobre-yeilis', 'Sobre Yeilis'),
+    ('servicios', 'Servicios para cabello rizado y liso | Yeilis AR Beauty',
+     'Recuperación del rizo, cortes para rizos, definición, color, keratina brasileña, botox capilar, alisado, extensiones y trenzas en Hialeah, Florida.', SERVICIOS, 'servicios', 'Servicios'),
+    ('universo-rizado', 'Universo Rizado: cuidado de rizos | Yeilis AR Beauty',
+     'La especialidad de Yeilis Armas: recuperación del rizo, cortes, definición y tratamientos para cabello rizado, con su Programa de Recuperación del Rizo.', UNIVERSO, 'universo-rizado', 'Universo Rizado'),
+    ('galeria', 'Galería de antes y después | Yeilis AR Beauty',
+     'Antes y después de cabello rizado y liso en Yeilis AR Beauty: recuperación del rizo, cortes, color y alisados. Galería en preparación con fotos reales.', GALERIA, 'galeria', 'Galería'),
+    ('academia', 'Academia de la Reina de los Rizos | Yeilis AR Beauty',
+     'Próximamente: cursos online, programas, consultas virtuales y guías para aprender a cuidar y recuperar el cabello rizado con el método de Yeilis Armas.', ACADEMIA, 'academia', 'Academia'),
+    ('tienda', 'Tienda de cuidado del cabello | Yeilis AR Beauty',
+     'Próximamente: los productos que Yeilis Armas recomienda para cuidar en casa el cabello rizado y liso. Catálogo en preparación.', TIENDA, 'tienda', 'Tienda'),
+    ('reservar', 'Reservar cita | Yeilis AR Beauty',
+     'Reserva tu cita o tu consulta gratuita con Yeilis Armas, especialista en cabello rizado en Hialeah, Florida. Atención solo con cita previa.', RESERVAR, 'reservar', 'Reservar cita'),
+    ('contacto', 'Contacto y ubicación en Hialeah | Yeilis AR Beauty',
+     'Yeilis AR Beauty está en Phenix Salon Suites, Suite 137, Hialeah, Florida. Citas de lunes a domingo, solo con cita previa.', CONTACTO, 'contacto', 'Contacto'),
+    # página interna de la propuesta: nunca se indexa y no se genera en modo de lanzamiento
+    ('pendientes', 'Pendientes | Yeilis AR Beauty', 'Material pendiente para completar el sitio de Yeilis AR Beauty.', PENDIENTES, '', 'Pendientes'),
 ]
+if LIVE:
+    PAGES = [pg for pg in PAGES if pg[0] != 'pendientes']
 
 
 def chrome(body, current):
@@ -577,9 +603,11 @@ def chrome(body, current):
     has = ' has-current' if current in dict(NAV_MORE) else ''
     foot_nav = '\n'.join(f'          <li><a href="@@{p}">{t}</a></li>' for p, t in NAV_MAIN[1:] + NAV_MORE)
     inner = f'<main id="contenido" tabindex="-1">\n{body}\n</main>'
+    banner = '' if LIVE else '''<div class="concept"><div class="wrap">Propuesta de diseño · <span class="xs-hide">Demostración para Yeilis AR Beauty · </span>Aún no es el sitio oficial · <a href="@@pendientes">Qué falta</a></div></div>
+'''
+    legal = 'Todos los derechos reservados.' if LIVE else 'Propuesta de diseño, no es el sitio oficial.'
     return f'''<a class="skip" href="#contenido">Saltar al contenido</a>
-<div class="concept"><div class="wrap">Propuesta de diseño · <span class="xs-hide">Demostración para Yeilis AR Beauty · </span>Aún no es el sitio oficial · <a href="@@pendientes">Qué falta</a></div></div>
-
+{banner}
 <header class="head">
   <div class="wrap">
     <a class="brand" href="@@home" aria-label="Yeilis AR Beauty, inicio">
@@ -613,7 +641,7 @@ def chrome(body, current):
       </div>
       <div>
         <h2>Visítanos</h2>
-        <p>Yeilis AR Beauty<br>Phenix Salon Suites, Suite&nbsp;137<br>Hialeah, Florida</p>
+        <address><p>Yeilis AR Beauty<br>Phenix Salon Suites, Suite&nbsp;137<br>Hialeah, Florida</p></address>
       </div>
       <div>
         <h2>Citas</h2>
@@ -633,7 +661,7 @@ def chrome(body, current):
       </div>
     </div>
     <div class="legal">
-      <span>© <span id="yr">2026</span> Yeilis AR Beauty · Propuesta de diseño, no es el sitio oficial.</span>
+      <span>© <span id="yr">2026</span> Yeilis AR Beauty · {legal}</span>
       <span>Las funciones de reserva, tienda y academia son demostraciones.</span>
     </div>
   </div>
@@ -661,20 +689,86 @@ def resolve(html, slug):
     return re.sub(r'@@([\w/.-]+?)(#[\w-]+)?(?=")', sub, html)
 
 
-def render(slug, title, desc, body, current):
+def clean(d):
+    """Quita los campos vacíos (None, '', [], {}) de forma recursiva: lo que no está confirmado no se publica."""
+    if isinstance(d, dict):
+        out = {k: clean(v) for k, v in d.items()}
+        return {k: v for k, v in out.items() if v not in (None, '', [], {})}
+    if isinstance(d, list):
+        return [clean(v) for v in d if clean(v) not in (None, '', [], {})]
+    return d
+
+
+def business_schema():
+    """Schema.org del negocio, solo con los campos confirmados de _src/business.json."""
+    a, h = BIZ['address'], BIZ['opening_hours']
+    street = ', '.join(x for x in (a.get('street_address'), a.get('suite')) if x) if a.get('street_address') else None
+    return clean({
+        '@context': 'https://schema.org', '@type': BIZ['business_type'],
+        '@id': (BASE_URL + '#negocio') if LIVE else None,
+        'name': BIZ['name'], 'alternateName': BIZ.get('alternate_name'), 'description': BIZ.get('description'),
+        'url': BASE_URL, 'image': (BASE_URL + 'assets/yeilis-hero.webp') if LIVE else None,
+        'telephone': BIZ.get('telephone'), 'email': BIZ.get('email'), 'priceRange': BIZ.get('price_range'),
+        'address': {'@type': 'PostalAddress', 'streetAddress': street, 'addressLocality': a.get('city'), 'addressRegion': a.get('region'),
+                    'postalCode': a.get('postal_code'), 'addressCountry': a.get('country')},
+        'geo': {'@type': 'GeoCoordinates', 'latitude': BIZ['geo'].get('latitude'), 'longitude': BIZ['geo'].get('longitude')} if BIZ['geo'].get('latitude') else None,
+        'containedInPlace': {'@type': 'Place', 'name': a.get('inside_of')} if a.get('inside_of') else None,
+        'openingHoursSpecification': [{'@type': 'OpeningHoursSpecification', 'dayOfWeek': h['days'], 'opens': h['opens'], 'closes': h['closes']}] if h.get('confirmed') else None,
+        'founder': {'@type': 'Person', 'name': BIZ['founder']['name'], 'jobTitle': BIZ['founder'].get('job_title')},
+        'knowsLanguage': BIZ.get('language'),
+        'sameAs': BIZ.get('social_profiles'),
+        'potentialAction': {'@type': 'ReserveAction', 'target': BASE_URL + BIZ['booking_path']} if LIVE else None,
+        'hasOfferCatalog': {'@type': 'OfferCatalog', 'name': 'Servicios', 'itemListElement': [
+            {'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': s}} for s in BIZ.get('services', [])]},
+    })
+
+
+def ld(data):
+    return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/') + '</script>'
+
+
+def seo_head(slug, title, desc, crumb):
+    """Metadatos de cada página. En modo previo al lanzamiento: noindex y sin direcciones absolutas."""
+    url = (BASE_URL + ('' if slug == 'home' else slug + '/')) if LIVE else None
+    robots = 'index, follow' if LIVE else 'noindex, nofollow'
+    t = [f'<meta name="robots" content="{robots}">', f'<meta name="description" content="{desc}">']
+    if LIVE:
+        t.append(f'<link rel="canonical" href="{url}">')
+        if BIZ.get('google_site_verification'):
+            t.append(f'<meta name="google-site-verification" content="{BIZ["google_site_verification"]}">')
+    t += [f'<meta property="og:type" content="website">', f'<meta property="og:site_name" content="{BIZ["name"]}">', '<meta property="og:locale" content="es_US">',
+          f'<meta property="og:title" content="{title}">', f'<meta property="og:description" content="{desc}">']
+    if LIVE:
+        t += [f'<meta property="og:url" content="{url}">', f'<meta property="og:image" content="{BASE_URL}assets/yeilis-hero.webp">', '<meta name="twitter:card" content="summary_large_image">']
+    else:
+        t.append('<meta name="twitter:card" content="summary">')
+    if slug in ('home', 'contacto'):
+        t.append(ld(business_schema()))
+    if LIVE and slug == 'home':
+        t.append(ld({'@context': 'https://schema.org', '@type': 'WebSite', 'name': BIZ['name'], 'url': BASE_URL, 'inLanguage': BIZ['language']}))
+    if LIVE and slug != 'home':
+        t.append(ld({'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Inicio', 'item': BASE_URL}, {'@type': 'ListItem', 'position': 2, 'name': crumb, 'item': url}]}))
+    if slug == 'home':   # la foto principal es lo primero que se pinta: se pide cuanto antes
+        t.append('<link rel="preload" as="image" href="@@/assets/yeilis-hero.webp" fetchpriority="high">')
+    return '\n'.join(t)
+
+
+def render(slug, title, desc, body, current, crumb):
     css = open(os.path.join(SITE, 'assets', 'site.css')).read()
     js = open(os.path.join(SITE, 'assets', 'site.js')).read()
     if PREVIEW:
         style, script = f'<style>\n{css}\n</style>', f'<script>\n{js}\n</script>'
+        if slug == 'home':
+            title = 'Yeilis AR Beauty'   # nombre corto para la vista previa
     else:
         style, script = '<link rel="stylesheet" href="@@/assets/site.css">', '<script src="@@/assets/site.js" defer></script>'
-    head = f'''<title>{title}</title>
+    head = f"""<title>{title}</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="robots" content="noindex">
 <meta name="theme-color" content="#FFF8F5">
-<meta name="description" content="{desc}">
+{seo_head(slug, title, desc, crumb)}
 {FONTS}
-{style}'''
+{style}"""
     content = f'{chrome(body, current)}\n\n{script}\n'
     if PREVIEW and slug == 'home':   # la página principal de la vista previa va sin envoltorio de documento
         doc = head + '\n' + content
@@ -684,11 +778,26 @@ def render(slug, title, desc, body, current):
     return resolve(doc, slug)
 
 
-out_root = PREVIEW or SITE
-for slug, title, desc, body, current in PAGES:
+out_root = PREVIEW or (TEST[0] if TEST else SITE)
+for slug, title, desc, body, current, crumb in PAGES:
+    assert len(title) <= 60 and 60 <= len(desc) <= 160, (slug, len(title), len(desc))
     d = out_root if slug == 'home' else os.path.join(out_root, slug)
     os.makedirs(d, exist_ok=True)
-    html = render(slug, title, desc, body, current)
+    html = render(slug, title, desc, body, current, crumb)
     assert '@@' not in html, (slug, re.findall(r'@@[^"]*', html)[:3])
-    open(os.path.join(d, 'index.html'), 'w').write(html)
-print('páginas:', len(PAGES), '->', out_root)
+    assert LIVE or 'noindex' in html, slug
+    open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(html)
+
+# robots.txt y sitemap.xml (un robots.txt solo actúa en la raíz de un dominio)
+if not PREVIEW:
+    robots, sitemap = os.path.join(out_root, 'robots.txt'), os.path.join(out_root, 'sitemap.xml')
+    if LIVE:
+        today = datetime.date.today().isoformat()
+        urls = ''.join(f'  <url>\n    <loc>{BASE_URL}{"" if s == "home" else s + "/"}</loc>\n    <lastmod>{today}</lastmod>\n  </url>\n' for s, *_ in PAGES)
+        open(sitemap, 'w', encoding='utf-8').write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
+        open(robots, 'w', encoding='utf-8').write(f'User-agent: *\nAllow: /\nDisallow: /_src/\n\nSitemap: {BASE_URL}sitemap.xml\n')
+    else:
+        open(robots, 'w', encoding='utf-8').write('# Sitio en preparación: no se permite el rastreo. La versión de lanzamiento la genera _src/build.py --launch.\nUser-agent: *\nDisallow: /\n')
+        if os.path.exists(sitemap):
+            os.remove(sitemap)
+print('páginas:', len(PAGES), '->', out_root, '| modo:', 'LANZAMIENTO (indexable) ' + BASE_URL if LIVE else 'previo al lanzamiento (noindex)')

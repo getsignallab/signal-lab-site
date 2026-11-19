@@ -1,0 +1,63 @@
+{
+  "_leeme": "Datos del negocio para SEO local y datos estructurados. Solo se publican los campos con valor: los que están en null se omiten, nunca se inventan. Rellenar con información confirmada por Yeilis.",
+
+  "launch_authorized": false,
+  "production_url": null,
+
+  "name": "Yeilis AR Beauty",
+  "alternate_name": "La Reina de los Rizos de Miami",
+  "description": "Salón de belleza de Yeilis Armas, estilista con más de 20 años de experiencia y especialista en cabello rizado. Atención solo con cita previa.",
+  "business_type": "HairSalon",
+  "language": "es",
+
+  "founder": {
+    "name": "Yeilis Armas",
+    "job_title": "Estilista especialista en cabello rizado"
+  },
+
+  "address": {
+    "inside_of": "Phenix Salon Suites",
+    "suite": "Suite 137",
+    "street_address": null,
+    "city": "Hialeah",
+    "region": "FL",
+    "postal_code": null,
+    "country": "US"
+  },
+  "geo": { "latitude": null, "longitude": null },
+
+  "telephone": null,
+  "whatsapp": null,
+  "email": null,
+  "social_profiles": [],
+
+  "opening_hours": {
+    "_nota": "Horario indicado por Yeilis para citas (lunes a domingo, 11:30–23:30, según su agenda). No se publica en los datos estructurados hasta que confirmed sea true.",
+    "confirmed": false,
+    "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "11:30",
+    "closes": "23:30"
+  },
+  "appointment_only": true,
+
+  "booking_path": "reservar/",
+  "price_range": null,
+
+  "services": [
+    "Recuperación del rizo",
+    "Cortes para cabello rizado",
+    "Definición del rizo",
+    "Tratamientos personalizados para rizos",
+    "Coloración, balayage y mechas",
+    "Keratina brasileña",
+    "Botox capilar",
+    "Alisado",
+    "Alineación capilar",
+    "Repolarización",
+    "Extensiones",
+    "Trenzas"
+  ],
+
+  "google_site_verification": null,
+  "ga4_measurement_id": null
+}

@@ -1,0 +1,3 @@
+# Sitio en preparación: no se permite el rastreo. La versión de lanzamiento la genera _src/build.py --launch.
+User-agent: *
+Disallow: /
