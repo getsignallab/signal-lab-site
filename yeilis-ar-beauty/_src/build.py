@@ -109,7 +109,7 @@ HOME = f'''<!-- 1 · HERO -->
         {reservar_btn()}
         <a class="btn btn-line" href="@@servicios">Ver servicios</a>
       </div>
-      <p class="hero-meta"><span><b>Phenix Salon Suites</b> · Suite 137 · Hialeah, Florida</span><span>Solo con cita previa · Lunes a domingo, 11:30 a.&nbsp;m. – 11:30 p.&nbsp;m.</span></p>
+      <p class="hero-meta"><span><b>Phenix Salon Suites</b> · Suite&nbsp;137 · Hialeah, Florida</span><span>Solo con cita previa · Lunes a domingo, 11:30 a.&nbsp;m. – 11:30 p.&nbsp;m.</span></p>
     </div>
     <div class="hero-art">
       <!-- RETRATO: reemplazar assets/yeilis-hero.webp por el retrato original en alta resolución (vertical 4:5, mínimo 1200 × 1500 px, sin logos ni texto encima). -->
@@ -407,7 +407,7 @@ CONTACTO = phero('Contacto', 'Contacto', 'Visítanos en <em>Hialeah</em>', 'Yeil
 <section class="band">
   <div class="wrap">
     <div class="contact">
-      <div class="cat rv"><span class="tag">Dirección</span><p class="val">Yeilis AR Beauty<br>Phenix Salon Suites, Suite 137<br>Hialeah, Florida</p><span class="todo">Pendiente: calle y número</span></div>
+      <div class="cat rv"><span class="tag">Dirección</span><p class="val">Yeilis AR Beauty<br>Phenix Salon Suites, Suite&nbsp;137<br>Hialeah, Florida</p><span class="todo">Pendiente: calle y número</span></div>
       <div class="cat rv"><span class="tag">Horario de citas</span><p class="val">Lunes a domingo<br>11:30 a.&nbsp;m. – 11:30 p.&nbsp;m.</p><p>Según la disponibilidad de su agenda. Solo con cita previa.</p></div>
       <div class="cat rv"><span class="tag both">Teléfono y WhatsApp</span><p class="val">Por confirmar</p><span class="todo">Pendiente: número de Yeilis</span></div>
       <div class="cat rv"><span class="tag both">Redes sociales</span><p class="val">Por confirmar</p><span class="todo">Pendiente: Instagram y otras redes</span></div>
@@ -516,7 +516,7 @@ RESERVAR = phero('Reservar cita', 'Citas en línea', 'Reserva tu <em>cita</em>',
             <dt>Fecha</dt><dd id="s-day">—</dd>
             <dt>Hora</dt><dd id="s-time">—</dd>
             <dt>Depósito</dt><dd id="s-dep">—</dd>
-            <dt>Lugar</dt><dd>Phenix Salon Suites, Suite 137<br>Hialeah, Florida</dd>
+            <dt>Lugar</dt><dd>Phenix Salon Suites, Suite&nbsp;137<br>Hialeah, Florida</dd>
           </dl>
         </div>
         <div class="rsv-card">
@@ -574,7 +574,7 @@ def chrome(body, current):
     has = ' has-current' if current in dict(NAV_MORE) else ''
     foot_nav = '\n'.join(f'          <li><a href="@@{p}">{t}</a></li>' for p, t in NAV_MAIN[1:] + NAV_MORE)
     inner = body if body.lstrip().startswith('<main') else f'<main>\n{body}\n</main>'
-    return f'''<div class="concept"><div class="wrap">Propuesta de diseño · Demostración para Yeilis AR Beauty · Aún no es el sitio oficial · <a href="@@pendientes">Qué falta</a></div></div>
+    return f'''<div class="concept"><div class="wrap">Propuesta de diseño · <span class="xs-hide">Demostración para Yeilis AR Beauty · </span>Aún no es el sitio oficial · <a href="@@pendientes">Qué falta</a></div></div>
 
 <header class="head">
   <div class="wrap">
