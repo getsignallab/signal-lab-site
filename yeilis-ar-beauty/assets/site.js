@@ -26,6 +26,39 @@
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { setNav(false); setMore(false); } });
 
+  /* Posición de scroll, para todas las páginas:
+     · cada página empieza arriba, también al volver con Atrás/Adelante (el navegador no restaura la posición anterior);
+     · un enlace con #seccion lleva a esa sección;
+     · pulsar el enlace de la página en la que ya estás sube al inicio sin recargar (no se pierde lo escrito en un formulario).
+     Solo actúa al cargar la página y al pulsar enlaces, nunca al interactuar con formularios. */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  const anchorTarget = () => {
+    let id = ''; try { id = decodeURIComponent(location.hash.slice(1)); } catch (_) {}
+    return id && !id.startsWith('svc-') ? document.getElementById(id) : null;   // #svc-… solo preselecciona un servicio en Reservar
+  };
+  let moved = false;   // si la persona ya empezó a moverse por la página, no se la recoloca
+  ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(t => addEventListener(t, () => { moved = true; }, { passive: true }));
+  const place = () => {
+    if (moved) return;
+    const t = anchorTarget();
+    if (t) return t.scrollIntoView({ block: 'start', behavior: 'instant' });
+    window.scrollTo(0, 0);
+    if (window.self !== window.top) document.documentElement.scrollIntoView({ block: 'start', behavior: 'instant' });   // dentro de un visor, sube también el marco
+  };
+  place();
+  addEventListener('load', place);
+  addEventListener('pageshow', e => { if (e.persisted) { moved = false; setNav(false); setMore(false); place(); } });
+  const samePage = u => u.protocol === location.protocol && u.host === location.host && u.pathname.replace(/index\.html$/, '') === location.pathname.replace(/index\.html$/, '');
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href]');
+    if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target) return;
+    const u = new URL(a.href, location.href);
+    if (!samePage(u) || u.hash) return;
+    e.preventDefault(); setNav(false); setMore(false);
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    window.scrollTo({ top: 0, behavior: calm ? 'auto' : 'smooth' });
+  });
+
   /* Aviso */
   const toast = $('#toast'); let tt;
   const say = msg => { if (!toast) return; toast.textContent = msg; toast.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('show'), 4200); };
@@ -97,15 +130,15 @@
       const l = el('label', 'opt'); const i = el('input'); i.type = 'radio'; i.name = name; i.id = id; i.value = value; i.checked = checked;
       const s = el('span'); build(s); l.append(i, s); return l;
     };
-    /* un enlace como reservar/#svc-keratina llega con ese servicio ya elegido */
+    /* un enlace como reservar/#svc-keratina llega con ese servicio ya elegido; los id de las opciones (opt-…) no coinciden con el # para que el navegador no baje hasta ellas */
     const want = location.hash.slice(1);
     groups.forEach(([title, items]) => {
       const fs = el('fieldset', 'rsv-group'); const lg = el('legend'); lg.append(el('span', '', title)); fs.append(lg);
       const box = el('div', 'opts');
-      items.forEach(([slug, name, tag]) => box.append(radio('svc', 'svc-' + slug, name, want ? want === 'svc-' + slug : slug === 'consulta', s => s.append(name, el('small', '', tag)))));
+      items.forEach(([slug, name, tag]) => box.append(radio('svc', 'opt-' + slug, name, want ? want === 'svc-' + slug : slug === 'consulta', s => s.append(name, el('small', '', tag)))));
       fs.append(box); $('#svc-groups').append(fs);
     });
-    if (!$('input[name="svc"]:checked', form)) $('#svc-consulta').checked = true;
+    if (!$('input[name="svc"]:checked', form)) $('#opt-consulta').checked = true;
     const fmtDow = new Intl.DateTimeFormat('es', { weekday: 'short' }), fmtMon = new Intl.DateTimeFormat('es', { month: 'short' }),
           fmtFull = new Intl.DateTimeFormat('es', { weekday: 'long', day: 'numeric', month: 'long' });
     for (let d = 1; d <= 14; d++) {
