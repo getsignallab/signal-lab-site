@@ -45,8 +45,8 @@
       if (seg === 'f') front += cmd; else back += cmd;
     }
     svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-    svg.innerHTML = `<defs><linearGradient id="cg${k}" x1="0" x2="1"><stop offset="0" stop-color="#d987a6"/><stop offset=".45" stop-color="#fff0f5"/><stop offset="1" stop-color="#e9a5bd"/></linearGradient></defs>
-      <path d="${back}" stroke="#8a4a63" stroke-width="3"/><path d="${front}" stroke="url(#cg${k})" stroke-width="4"/>`;
+    svg.innerHTML = `<defs><linearGradient id="cg${k}" x1="0" x2="1"><stop offset="0" stop-color="#A9757E"/><stop offset=".45" stop-color="#D9B3B9"/><stop offset="1" stop-color="#84555F"/></linearGradient></defs>
+      <path d="${back}" stroke="#D4AE9F" stroke-width="3"/><path d="${front}" stroke="url(#cg${k})" stroke-width="4"/>`;
   });
 
   /* Antes / después */

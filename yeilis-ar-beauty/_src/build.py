@@ -16,7 +16,7 @@ NAV_MAIN = [('home', 'Inicio'), ('servicios', 'Servicios'), ('universo-rizado', 
 NAV_MORE = [('academia', 'Academia'), ('tienda', 'Tienda'), ('contacto', 'Contacto')]
 
 ARR = '<span class="arr" aria-hidden="true">→</span>'
-CROWN = '<svg class="crown" viewBox="0 0 64 40" aria-hidden="true"><path d="M5 36h54l-4-24-12 11L32 4 21 23 9 12z" fill="none" stroke="#f6c3d3" stroke-width="1.6" stroke-linejoin="round"/><circle cx="32" cy="3" r="2.4" fill="#f6c3d3"/><circle cx="8" cy="10" r="2.2" fill="#f6c3d3"/><circle cx="56" cy="10" r="2.2" fill="#f6c3d3"/></svg>'
+CROWN = '<svg class="crown" viewBox="0 0 64 40" aria-hidden="true"><path d="M5 36h54l-4-24-12 11L32 4 21 23 9 12z" fill="none" stroke="#A9757E" stroke-width="1.6" stroke-linejoin="round"/><circle cx="32" cy="3" r="2.4" fill="#A9757E"/><circle cx="8" cy="10" r="2.2" fill="#A9757E"/><circle cx="56" cy="10" r="2.2" fill="#A9757E"/></svg>'
 
 
 def more(page, text):
@@ -102,7 +102,7 @@ HOME = f'''<!-- 1 · HERO -->
       <p class="eyebrow">Yeilis Armas · Especialista en cabello rizado</p>
       <h1 class="h1"><span class="chrome">La Reina</span><span class="chrome">de los <em>Rizos</em></span><span class="chrome">de Miami</span></h1>
       <p class="tagline">
-        <svg viewBox="0 0 34 22" aria-hidden="true"><path d="M2 20h30L30 7l-7 6-6-11-6 11-7-6z" fill="none" stroke="#f6c3d3" stroke-width="1.4" stroke-linejoin="round"/><circle cx="17" cy="2" r="1.6" fill="#f6c3d3"/><circle cx="4" cy="6.5" r="1.4" fill="#f6c3d3"/><circle cx="30" cy="6.5" r="1.4" fill="#f6c3d3"/></svg>
+        <svg viewBox="0 0 34 22" aria-hidden="true"><path d="M2 20h30L30 7l-7 6-6-11-6 11-7-6z" fill="none" stroke="#A9757E" stroke-width="1.4" stroke-linejoin="round"/><circle cx="17" cy="2" r="1.6" fill="#A9757E"/><circle cx="4" cy="6.5" r="1.4" fill="#A9757E"/><circle cx="30" cy="6.5" r="1.4" fill="#A9757E"/></svg>
         Tu cabello, tu corona.
       </p>
       <p class="hero-intro">Más de 20 años de experiencia dedicados a cuidar, cortar, definir y recuperar el cabello rizado, en un espacio privado en Hialeah.</p>
@@ -589,7 +589,7 @@ def chrome(body, current):
   <div class="wrap">
     <a class="brand" href="@@home" aria-label="Yeilis AR Beauty, inicio">
       <!-- LOGO: reemplazar assets/logo-ya.webp por el logo original con fondo transparente (PNG o SVG) y quitar mix-blend-mode de .brand img y .foot-brand img. -->
-      <img src="@@/assets/logo-ya.webp" width="288" height="264" alt="Logo YA de Yeilis Armas">
+      <span class="brand-mark"><img src="@@/assets/logo-ya.webp" width="288" height="264" alt="Logo YA de Yeilis Armas"></span>
       <span><b>Yeilis AR Beauty</b><small>La Reina de los Rizos</small></span>
     </a>
     <nav class="nav" id="nav" aria-label="Navegación principal">
@@ -676,7 +676,7 @@ def render(slug, title, desc, body, current):
     head = f'''<title>{title}</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#070506">
+<meta name="theme-color" content="#FFF8F5">
 <meta name="description" content="{desc}">
 {FONTS}
 {style}'''
